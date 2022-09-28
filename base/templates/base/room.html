@@ -1,0 +1,30 @@
+{% extends 'base/main.html' %} {% load static %} {% block content %}
+
+<main>
+  <a href="{% url 'base:Lobby' %}"> <i class="fa-solid fa-house"></i></a>
+  <section id="room-name-wrapper">
+    <p>Room Name: <span id="room-name"></span></p>
+    <h3 id="mapp">Current Users:</h3>
+  </section>
+  <section id="video-streams"></section>
+
+  <section id="controls-wrapper">
+    <div class="icon-wrapper">
+      <i class="fa-solid fa-microphone control-icon" id="mic-btn"></i>
+    </div>
+    <div class="icon-wrapper">
+      <i class="fa-solid fa-video control-icon" id="camera-btn"></i>
+    </div>
+
+    <div class="icon-wrapper">
+      <i class="fa-regular fa-user-xmark control-icon" id="leave-btn"></i>
+    </div>
+  </section>
+</main>
+
+<script
+  type="text/javascript"
+  src="{% static 'assets/AgoraRTC_N-4.14.0.js' %}"
+></script>
+<script type="text/javascript" src="{% static 'js/streams.js' %}"></script>
+{% endblock content %}

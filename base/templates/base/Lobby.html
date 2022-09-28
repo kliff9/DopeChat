@@ -1,0 +1,228 @@
+{% extends 'base/main.html' %} {% load static %} {% block content %}
+
+<main>
+  <nav class="navbar navbar-expand-lg bg-transparent py-3 shadow-none">
+    <div class="container">
+      <a class="navbar-brand w-8" href="#" data-config-id="brand">
+        <img
+          src="https://cdn.freelogodesign.org/files/8db4745fa99d42ec99cbff6e3d3fef42/thumb/logo_200x200.png?v=637993167120000000"
+          width="70"
+          height="70"
+          alt=""
+        />
+      </a>
+
+      <button
+        class="navbar-toggler shadow-none ms-2"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navigation"
+        aria-controls="navigation"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon mt-2">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </span>
+      </button>
+      <div
+        class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0"
+        id="navigation"
+      >
+        <ul class="navbar-nav navbar-nav-hover ms-auto">
+          <li class="nav-item mx-2">
+            <a href="javascript:void(0);" class="nav-link ps-2 cursor-pointer">
+              Home
+            </a>
+          </li>
+          <li class="nav-item mx-2">
+            <a href="javascript:void(0);" class="nav-link ps-2 cursor-pointer"
+              >News</a
+            >
+          </li>
+          <li class="nav-item mx-2">
+            <a
+              href="javascript:void(0);"
+              class="btn bg-gradient-warning mb-0 cursor-pointer"
+              >Sign In</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="">
+    <div
+      class="page-header min-vh-75 m-3 border-radius-xl"
+      style="
+        background-image: url(https://media.istockphoto.com/photos/telework-video-meeting-concept-picture-id1407685529?b=1&k=20&m=1407685529&s=170667a&w=0&h=GFPdW5NfXrQwpAT-AaHeK6ZBJUDu56SzdP1EOWV0qWs=);
+      "
+    >
+      <!--         background-image: url(https://images.unsplash.com/photo-1648737966762-1c8921f9b976?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80); -->
+      <span class="mask bg-gradient-dark"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-white text-center">
+            <h2 class="text-white">Where hanging out is easy</h2>
+            <p class="lead">
+              Grab a seat in a voice channel when you’re free. Friends in your
+              server can see you’re around and instantly pop in to talk without
+              having to call.
+            </p>
+            <div class="d-flex justify-content-center">
+              <p
+                class="w-25 d-flex justify-content-center bg-gradient-warning mb-0 cursor-pointer"
+              >
+                Now That Is Dope
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <form
+        class="row bg-white shadow-lg mt-n6 border-radius-md pb-4 p-3 mx-sm-0 mx-1 position-relative"
+        id="Chat_form"
+      >
+        <div class="col-lg-4 mt-lg-n2 mt-2">
+          <label class="">Room</label>
+          <input
+            class="form-control datepicker-1 flatpickr-input active"
+            placeholder="Please select check in date"
+            type="text"
+            name="room"
+            id=""
+          />
+        </div>
+        <div class="col-lg-4 mt-lg-n2 mt-2">
+          <label class="">Name</label>
+          <input
+            class="form-control datepicker-2 flatpickr-input active"
+            placeholder="Please select check out date"
+            type="text"
+            name="name"
+          />
+        </div>
+        <div class="col-lg-1 mt-lg-n2 mt-2">
+          <label class="">Person</label>
+          <select
+            class="form-control"
+            name="choices-leave"
+            id="choices-person"
+            placeholder="1"
+          >
+            <option value="Choice 1" selected="">1</option>
+            <option value="Choice 2">2</option>
+            <option value="Choice 3">3</option>
+            <option value="Choice 4">4</option>
+            <option value="Choice 5">5</option>
+            <option value="Choice 6">6</option>
+            <option value="Choice 7">7</option>
+            <option value="Choice 8">8</option>
+          </select>
+        </div>
+        <div class="col-lg-3 d-flex align-items-center my-auto">
+          <button
+            type="submit"
+            class="btn bg-gradient-dark w-100 btn-lg mb-0 m4 mt-3"
+          >
+            Book now
+          </button>
+        </div>
+      </form>
+    </div>
+  </header>
+
+  <section class="mt-4">
+    <div class="container pt-5">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="text-center">
+            <img
+              src="https://media.istockphoto.com/photos/happy-people-making-online-videochat-remotely-screenshot-picture-id1331256305?b=1&k=20&m=1331256305&s=170667a&w=0&h=7dvPY751GjddVzdZtQvyOVKQnfg-CdkcCddg60VSfIE="
+              alt="img-blur-shadow"
+              class="img-fluid shadow border-radius-lg max-height-600"
+            />
+          </div>
+        </div>
+        <div class="col-md-6 mb-md-0 mb-4 ps-5 mt-md-0 mt-4">
+          <h3 class="mb-3" spellcheck="false">
+            Where having Dope Chats is easy
+          </h3>
+          <p class="mb-md-5 mb-4">
+            Where just you and a handful of friends can spend time together. A
+            place that makes it easy to talk every day and hang out more often
+          </p>
+          <a class="btn bg-gradient-warning">Read more</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section id="form-container">
+    <img id="logo" src="{% static 'images/chat-icon.png' %}" />
+
+    <div id="welcome-message">
+      <h1>Welcome to MyChat</h1>
+      <p>A group video calling platform made just for you!</p>
+    </div>
+
+    <form id="form">
+      <div class="field-wrapper">
+        <div class="form-field">
+          <label>Room:</label>
+          <input
+            name="room"
+            placeholder="Enter a room name..."
+            style="text-transform: uppercase"
+          />
+        </div>
+
+        <div class="form-field">
+          <label>Name:</label>
+          <input
+            name="name"
+            placeholder="Enter your name..."
+            style="text-transform: uppercase"
+          />
+        </div>
+
+        <div class="form-field">
+          <input type="submit" value="Join Stream" />
+        </div>
+      </div>
+    </form>
+  </section> -->
+</main>
+
+<script>
+  let Chat_form = document.getElementById("Chat_form");
+
+  let handleSubmit = async (e) => {
+    e.preventDefault();
+    let room = e.target.room.value.toUpperCase();
+    let name = e.target.name.value;
+
+    let response = await fetch(`/get_token/?channel=${room}`);
+    let data = await response.json();
+    console.log("data: ", data);
+
+    let UID = data.uid;
+    let token = data.token;
+    // A page session lasts as long as the tab or the browser is open, and survives over page reloads and restores.
+    sessionStorage.setItem("UID", UID);
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("room", room);
+    sessionStorage.setItem("name", name);
+
+    window.open("/room/", "_self"); //redirect
+  };
+
+  Chat_form.addEventListener("submit", handleSubmit);
+</script>
+
+{% endblock content %}
