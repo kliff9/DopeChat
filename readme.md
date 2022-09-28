@@ -9,13 +9,13 @@ A Group video calling application using the Agora Web SDK with a Django backend.
 #### 1 - Clone repo
 
 ```
-git clone
+git clone https://github.com/kliff9/DopeChat
 ```
 
 #### 2 - Install requirements
 
 ```
-cd mychat
+cd DopeChat
 pip install -r requirements.txt
 ```
 
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 In order to use this project you will need to replace the agora credentials in `views.py` and `streams.js`.
 
-Create an account at agora.io and create an `app`. Once you create your app, you will want to copy the `appid` & `appCertificate` to update `views.py` and `streams.js`. If you have questions about where to get your app I'd recommend referencing this link `https://youtu.be/HX6AM_1-jNM?t=88`
+Create an account at agora.io and create an `app`. Once you create your app, you will want to copy the `appid` & `appCertificate` to update `views.py` and `streams.js`.
 
 ###### views.py
 
