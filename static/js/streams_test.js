@@ -53,7 +53,7 @@ let joinAndDisplayLocalStream = async () => {
 
   client.on("user-published", handleUserJoined); //listen to publish event we need a function to respond
   // client.on("user-published", adduser);
-  // client.on("user-left", handleUserLeft);
+  client.on("user-left", handleUserLeft);
   console.log("Starting: ");
   UID = Number(UID);
   console.log(typeof UID);

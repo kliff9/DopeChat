@@ -9,6 +9,10 @@ let UID = sessionStorage.getItem("UID");
 let NAME = sessionStorage.getItem("name");
 
 const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+// Enable log upload
+AgoraRTC.enableLogUpload();
+// Set the log output level as INFO
+AgoraRTC.setLogLevel(1);
 
 console.log(`The Client has been connected: ${client}`);
 
@@ -21,6 +25,7 @@ let joinAndDisplayLocalStream = async () => {
   document.getElementById("room-name").innerText = CHANNEL;
 
   client.on("user-published", handleUserJoined);
+  client.on("user-left", handleUserLeft);
 
   console.log("Starting: ");
   UID = Number(UID);
