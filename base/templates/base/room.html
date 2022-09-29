@@ -5,6 +5,7 @@
   <section id="room-name-wrapper">
     <p>Room Name: <span id="room-name"></span></p>
     <h3 id="mapp">Current Users:</h3>
+    <button id="user-audio">LogCeck</button>
   </section>
   <section id="video-streams"></section>
 
@@ -26,5 +27,17 @@
   type="text/javascript"
   src="{% static 'assets/AgoraRTC_N-4.14.0.js' %}"
 ></script>
-<script type="text/javascript" src="{% static 'js/streams.js' %}"></script>
+
+{% comment %} <script
+  type="text/javascript"
+  src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"
+></script> {% endcomment %}
+<script type="text/javascript" src="{% static 'js/streams.js' %}">
+</script>
+
+<script>
+
+
+</script>
+
 {% endblock content %}

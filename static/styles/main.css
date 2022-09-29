@@ -4,12 +4,16 @@
 :root {
   --shaddow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --bs-gradient-warning-right: #f53939;
+  --bs-gradient-warning-left: #fbcf33;
+  --bs-gradient-dark-right: #141727;
+  --bs-gradient-dark-left: #3a416f;
 }
 
-body {
+/* body {
   background-color: rgba(232, 233, 239, 1);
-  font-family: "Roboto", sans-serif;
-}
+  font-family: "Roboto", sans-serisf;
+} */
 
 /* ------------------  Register Page ------------------ */
 
@@ -158,4 +162,52 @@ body {
 
 #leave-btn {
   background-color: rgb(255, 80, 80, 1);
+}
+
+.page-header {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: 50%;
+}
+.page-header .container {
+  z-index: 1;
+}
+
+.mask {
+  position: absolute;
+  background-position: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+.bg-gradient-warning {
+  background-image: linear-gradient(
+    310deg,
+    var(--bs-gradient-warning-right),
+    var(--bs-gradient-warning-left)
+  );
+}
+
+.lead-400 {
+  font-weight: 400 !important;
+}
+.lead-font {
+  font-size: 1.25rem;
+}
+.bg-gradient-dark {
+  background-image: linear-gradient(
+    310deg,
+    var(--bs-gradient-dark-right),
+    var(--bs-gradient-dark-left)
+  );
+}
+
+.mt-n6 {
+  margin-top: -4rem;
 }
