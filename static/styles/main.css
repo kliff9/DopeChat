@@ -211,3 +211,7 @@
 .mt-n6 {
   margin-top: -4rem;
 }
+
+.min-vh-75 {
+  min-height: 77vh;
+}
