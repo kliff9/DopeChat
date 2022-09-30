@@ -209,14 +209,7 @@ let getMember = async (user) => {
   return member;
 };
 
-AgoraRTC.onAutoplayFailed = () => {
-  const btn = document.createElement("button");
-  btn.innerText = "Click me to resume the audio/video playback";
-  btn.onClick = () => {
-    btn.remove();
-  };
-  document.body.append(btn);
-}
+
 
 let AutoplayCheck = (e) => {
 
