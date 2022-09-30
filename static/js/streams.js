@@ -204,9 +204,6 @@ let getMember = async (user) => {
   return member;
 };
 
-<<<<<<< HEAD
-
-=======
 AgoraRTC.onAutoplayFailed = () => {
   const btn = document.createElement("button");
   btn.innerText = "Click me to resume the audio/video playback";
@@ -215,7 +212,6 @@ AgoraRTC.onAutoplayFailed = () => {
   };
   document.body.append(btn);
 };
->>>>>>> 2d2115ba7a27040a61d8652ab4f4df478cb7404d
 
 let AutoplayCheck = (e) => {
   console.log(remoteUsers);
