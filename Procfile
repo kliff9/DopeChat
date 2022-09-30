@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn DopeChat.wsgi
+web: gunicorn DopeChat.wsgi --log-file-
