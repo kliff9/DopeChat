@@ -19,6 +19,7 @@ console.log(`The Client has been connected: ${client}`);
 let localTracks = [];
 let remoteUsers = {};
 
+
 // ------------------------------------------------ Function allows user to join the Stream   -------------------------------------------- \\\
 
 let joinAndDisplayLocalStream = async () => {
