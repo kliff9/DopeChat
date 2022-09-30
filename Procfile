@@ -1,1 +1,1 @@
-web: gunicorn DopeChat.wsgi --log-file-
+web: gunicorn DopeChat.wsgi --log-file -
