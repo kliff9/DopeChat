@@ -14,7 +14,7 @@ from django.views.decorators.csrf import requires_csrf_token
 # Create your views here.
 
 def Lobby(request):
-    return render(request, 'base/lobby.html')
+    return render(request, 'base/Lobby.html')
 
 def room(request):
     return render(request, 'base/room.html')
