@@ -1,1 +1,1 @@
-web: gunicorn DopeChat.wsgi
+web: python manage.py migrate && gunicorn DopeChat.wsgi
