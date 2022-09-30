@@ -14,7 +14,6 @@ AgoraRTC.setLogLevel(1);
 
 const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
-
 console.log(`The Client has been connected: ${client}`);
 
 let localTracks = [];
@@ -44,25 +43,23 @@ let joinAndDisplayLocalStream = async () => {
   localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
   let member = await createMember();
 
-   remoteUsers[UID] = member;
+  remoteUsers[UID] = member;
 
   let player = `<div  class="video-container" id="user-container-${UID}">
                    <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
                      <div class="video-player" id="user-${UID}"></div>
                   </div>`;
 
-
-
-let getD = await AgoraRTC.getDevices().then(devices => {
-
-  function looping(item){
-    console.log(item)
-  }
-  devices.forEach(looping)
-  }).catch(e => {
-  console.log("get devices error!", e);
-  });
-
+  let getD = await AgoraRTC.getDevices()
+    .then((devices) => {
+      function looping(item) {
+        console.log(item);
+      }
+      devices.forEach(looping);
+    })
+    .catch((e) => {
+      console.log("get devices error!", e);
+    });
 
   document
     .getElementById("video-streams")
@@ -109,7 +106,7 @@ let handleUserJoined__a = async (user, mediaType) => {
 // ------------------------------------------------ Subscribes the User to the Channel upon joining ----------------------------------------------------- \\\
 
 let handleUserJoined = async (user, mediaType) => {
-  let activated = 0
+  let activated = 0;
   remoteUsers[user.uid] = user;
   await client.subscribe(user, mediaType);
   if (mediaType === "video") {
@@ -129,12 +126,9 @@ let handleUserJoined = async (user, mediaType) => {
   }
   if (mediaType === "audio") {
     user.audioTrack.play();
-
-
-
   }
 
-  activated += 1
+  activated += 1;
   console.log("activated: ", activated);
 };
 
@@ -175,7 +169,7 @@ let toggleMic = async (e) => {
   console.log("TOGGLE MIC TRIGGERED");
   if (localTracks[0].muted) {
     await localTracks[0].setMuted(false);
-    console.log("The Mic Has been Umuted")
+    console.log("The Mic Has been Umuted");
     e.target.style.backgroundColor = "#fff";
   } else {
     await localTracks[0].setMuted(true);
@@ -209,13 +203,23 @@ let getMember = async (user) => {
   return member;
 };
 
+<<<<<<< HEAD
 
+=======
+AgoraRTC.onAutoplayFailed = () => {
+  const btn = document.createElement("button");
+  btn.innerText = "Click me to resume the audio/video playback";
+  btn.onClick = () => {
+    btn.remove();
+  };
+  document.body.append(btn);
+};
+>>>>>>> 2d2115ba7a27040a61d8652ab4f4df478cb7404d
 
 let AutoplayCheck = (e) => {
-
-  console.log(remoteUsers)
-  console.log(UID)
-  console.log(remoteUsers.UID)
+  console.log(remoteUsers);
+  console.log(UID);
+  console.log(remoteUsers.UID);
 
   // if (user1.audioTrack.isPlaying) {
   //     user1.audioTrack.stop();
@@ -227,7 +231,7 @@ let AutoplayCheck = (e) => {
   // console.log("button was clicked")
   // user1.audioTrack.play();
   // e.target.innerHTML = "Playing";
-}
+};
 // ------------------------------------------------ Calling the Main Function  ----------------------------------------------------- \\\
 
 joinAndDisplayLocalStream();
@@ -248,17 +252,16 @@ AgoraRTC.onMicrophoneChanged = (info) => {
 
 let isAudioAutoplayFailed = false;
 AgoraRTC.onAudioAutoplayFailed = () => {
- if (isAudioAutoplayFailed) return;
+  if (isAudioAutoplayFailed) return;
 
- isAudioAutoplayFailed = true;
- const btn = document.createElement("button");
- btn.innerText = "Click me to resume the audio playback";
- btn.onClick = () => {
-   isAudioAutoplayFailed = false;
-   btn.remove();
- };
- document.body.append(btn);
+  isAudioAutoplayFailed = true;
+  const btn = document.createElement("button");
+  btn.innerText = "Click me to resume the audio playback";
+  btn.onClick = () => {
+    isAudioAutoplayFailed = false;
+    btn.remove();
+  };
+  document.body.append(btn);
 };
-
 
 // getD()
