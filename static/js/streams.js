@@ -61,49 +61,21 @@ let joinAndDisplayLocalStream = async () => {
     .catch((e) => {
       console.log("get devices error!", e);
     });
+    let Camera = localTracks[1] 
+
+    Camera.setEncoderConfiguration("1080p_3").then(() => { /** ... **/ })
+
 
   document
     .getElementById("video-streams")
     .insertAdjacentHTML("beforeend", player);
   localTracks[1].play(`user-${UID}`);
   await client.publish([localTracks[0], localTracks[1]]);
+  let stats = client.getLocalVideoStats()
+  let camerastate = Camera.getTrackId()
+  console.log(' Stats: ', stats, 'camera: ', camerastate)
 };
 
-let handleUserJoined__a = async (user, mediaType) => {
-  remoteUsers[user.uid] = user;
-  await client.subscribe(user, mediaType);
-  if (mediaType === "video") {
-    let player = document.getElementById(`user-container-${user.uid}`);
-    if (player != null) {
-      player.remove();
-    }
-
-    let member = await getMember(user);
-    if (member) {
-      console.log(
-        `User: ${member.name} has Join the Stream using ${UID} or ${MemberName} creds`
-      );
-    }
-
-    console.log("MemberName: 0", MemberName);
-    player = `<div  class="video-container" id="user-container-${user.uid}">
-        <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
-    <div class="video-player" id="user-${user.uid}"></div>
-    </div>`;
-    document
-      .getElementById("video-streams")
-      .insertAdjacentHTML("beforeend", player);
-    console.log("subscribe video success");
-
-    user.videoTrack.play(`user-${user.uid}`);
-  }
-
-  if (mediaType === "audio") {
-    console.log("subscribe audio success");
-
-    user.audioTrack.play();
-  }
-};
 // ------------------------------------------------ Subscribes the User to the Channel upon joining ----------------------------------------------------- \\\
 
 let handleUserJoined = async (user, mediaType) => {
@@ -116,6 +88,10 @@ let handleUserJoined = async (user, mediaType) => {
       player.remove();
     }
     let member = await getMember(user);
+      console.log(
+        `User: ${member.name} has Join the Stream using ${UID} or ${MemberName} creds`
+      );
+
     player = `<div  class="video-container" id="user-container-${user.uid}">
           <div class="video-player" id="user-${user.uid}"></div>
           <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
