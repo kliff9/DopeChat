@@ -54,29 +54,29 @@ let joinAndDisplayLocalStream = async () => {
                      <div class="video-player" id="user-${UID}"></div>
                   </div>`;
 
-  let getD = await AgoraRTC.getDevices()
-    .then((devices) => {
-      function looping(item) {
-        console.log(item);
-      }
-      devices.forEach(looping);
-    })
-    .catch((e) => {
-      console.log("get devices error!", e);
-    });
-    let Camera = localTracks[1] 
-
-    Camera.setEncoderConfiguration("1080p_3").then(() => { /** ... **/ })
-
+  // let getD = await AgoraRTC.getDevices()
+  //   .then((devices) => {
+  //     function looping(item) {
+  //       console.log(item);
+  //     }
+  //     devices.forEach(looping);
+  //   })
+  //   .catch((e) => {
+  //     console.log("get devices error!", e);
+  //   });
 
   document
     .getElementById("video-streams")
     .insertAdjacentHTML("beforeend", player);
   localTracks[1].play(`user-${UID}`);
   await client.publish([localTracks[0], localTracks[1]]);
-  let stats = client.getLocalVideoStats()
-  let camerastate = Camera.getTrackId()
-  console.log(' Stats: ', stats, 'camera: ', camerastate)
+
+  console.log(
+    "Cam: ",
+    Cam.getMediaStreamTrack().getSettings(),
+    "CamVideoStats: ",
+    client.getLocalVideoStats()
+  );
 };
 
 // ------------------------------------------------ Subscribes the User to the Channel upon joining ----------------------------------------------------- \\\
@@ -91,10 +91,6 @@ let handleUserJoined = async (user, mediaType) => {
       player.remove();
     }
     let member = await getMember(user);
-      console.log(
-        `User: ${member.name} has Join the Stream using ${UID} or ${MemberName} creds`
-      );
-
     player = `<div  class="video-container" id="user-container-${user.uid}">
           <div class="video-player" id="user-${user.uid}"></div>
           <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
