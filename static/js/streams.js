@@ -19,7 +19,6 @@ console.log(`The Client has been connected: ${client}`);
 let localTracks = [];
 let remoteUsers = {};
 
-
 // ------------------------------------------------ Function allows user to join the Stream   -------------------------------------------- \\\
 
 let joinAndDisplayLocalStream = async () => {
@@ -67,6 +66,8 @@ let joinAndDisplayLocalStream = async () => {
     .insertAdjacentHTML("beforeend", player);
   localTracks[1].play(`user-${UID}`);
   await client.publish([localTracks[0], localTracks[1]]);
+
+  getMediaStreamTrack();
 };
 
 let handleUserJoined__a = async (user, mediaType) => {
@@ -245,20 +246,6 @@ document.getElementById("user-audio").addEventListener("click", AutoplayCheck);
 // ------------------------------------------------------------------------------------------------------------- \\\
 AgoraRTC.onMicrophoneChanged = (info) => {
   console.log("microphone changed!", info.state, info.device);
-};
-
-let isAudioAutoplayFailed = false;
-AgoraRTC.onAudioAutoplayFailed = () => {
-  if (isAudioAutoplayFailed) return;
-
-  isAudioAutoplayFailed = true;
-  const btn = document.createElement("button");
-  btn.innerText = "Click me to resume the audio playback";
-  btn.onClick = () => {
-    isAudioAutoplayFailed = false;
-    btn.remove();
-  };
-  document.body.append(btn);
 };
 
 // getD()
