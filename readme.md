@@ -10,6 +10,8 @@ A Group video calling application using the Agora Web SDK with a Django backend.
 ◼ CSS - Describes how HTML elements are to be displayed on screen, paper, or in other media
 
 ◼ React. js - A JavaScript library for building user interfaces
+ 
+◼ Agora.io SDK - AReal-Time Engagement platform that provides cross-platform SDK’s for implementing voice, video and broadcasting capabilities
 
 ## Website:
 
