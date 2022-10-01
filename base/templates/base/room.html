@@ -4,7 +4,12 @@
   <a href="{% url 'base:Lobby' %}"> <i class="fa-solid fa-house"></i></a>
   <section id="room-name-wrapper">
     <p>Room Name: <span id="room-name"></span></p>
-    <h3 id="mapp">Current Users:</h3>
+    <!-- <h3 id="mapp">Current Users:</h3> -->
+    <ul id="navigation">
+      {{room}} Current Users: {% for item in data %}
+      <li>{{item}}</li>
+      {% endfor %}
+    </ul>
     <button id="user-audio">LogCeck</button>
   </section>
   <section id="video-streams"></section>
@@ -28,16 +33,8 @@
   src="{% static 'assets/AgoraRTC_N-4.14.0.js' %}"
 ></script>
 
-{% comment %} <script
-  type="text/javascript"
-  src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"
-></script> {% endcomment %}
-<script type="text/javascript" src="{% static 'js/streams.js' %}">
-</script>
+<script type="text/javascript" src="{% static 'js/streams.js' %}"></script>
 
-<script>
-
-
-</script>
+<script></script>
 
 {% endblock content %}

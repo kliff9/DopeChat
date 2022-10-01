@@ -42,7 +42,11 @@ let joinAndDisplayLocalStream = async () => {
   console.log(`The UID has been Created: ${UID}`);
   localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
   let member = await createMember();
+  let Cam = await localTracks[1];
 
+  let HD720 = await Cam.setEncoderConfiguration("720p_2").then(() => {
+    console.log("Quality has been updated to", Cam._encoderConfig);
+  });
   remoteUsers[UID] = member;
 
   let player = `<div  class="video-container" id="user-container-${UID}">
@@ -50,16 +54,16 @@ let joinAndDisplayLocalStream = async () => {
                      <div class="video-player" id="user-${UID}"></div>
                   </div>`;
 
-  let getD = await AgoraRTC.getDevices()
-    .then((devices) => {
-      function looping(item) {
-        console.log(item);
-      }
-      devices.forEach(looping);
-    })
-    .catch((e) => {
-      console.log("get devices error!", e);
-    });
+  // let getD = await AgoraRTC.getDevices()
+  //   .then((devices) => {
+  //     function looping(item) {
+  //       console.log(item);
+  //     }
+  //     devices.forEach(looping);
+  //   })
+  //   .catch((e) => {
+  //     console.log("get devices error!", e);
+  //   });
 
   document
     .getElementById("video-streams")
@@ -67,44 +71,14 @@ let joinAndDisplayLocalStream = async () => {
   localTracks[1].play(`user-${UID}`);
   await client.publish([localTracks[0], localTracks[1]]);
 
-  getMediaStreamTrack();
+  console.log(
+    "Cam: ",
+    Cam.getMediaStreamTrack().getSettings(),
+    "CamVideoStats: ",
+    client.getLocalVideoStats()
+  );
 };
 
-let handleUserJoined__a = async (user, mediaType) => {
-  remoteUsers[user.uid] = user;
-  await client.subscribe(user, mediaType);
-  if (mediaType === "video") {
-    let player = document.getElementById(`user-container-${user.uid}`);
-    if (player != null) {
-      player.remove();
-    }
-
-    let member = await getMember(user);
-    if (member) {
-      console.log(
-        `User: ${member.name} has Join the Stream using ${UID} or ${MemberName} creds`
-      );
-    }
-
-    console.log("MemberName: 0", MemberName);
-    player = `<div  class="video-container" id="user-container-${user.uid}">
-        <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
-    <div class="video-player" id="user-${user.uid}"></div>
-    </div>`;
-    document
-      .getElementById("video-streams")
-      .insertAdjacentHTML("beforeend", player);
-    console.log("subscribe video success");
-
-    user.videoTrack.play(`user-${user.uid}`);
-  }
-
-  if (mediaType === "audio") {
-    console.log("subscribe audio success");
-
-    user.audioTrack.play();
-  }
-};
 // ------------------------------------------------ Subscribes the User to the Channel upon joining ----------------------------------------------------- \\\
 
 let handleUserJoined = async (user, mediaType) => {
@@ -201,7 +175,7 @@ let getMember = async (user) => {
     `/get_member/?UID=${user.uid}&room_name=${CHANNEL}`
   );
   let member = await response.json();
-  console.log(`Getmember: ${member}`);
+  console.log("Getmember:", member);
   return member;
 };
 
