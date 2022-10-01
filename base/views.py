@@ -9,15 +9,31 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import requires_csrf_token
 
+from . import models
 
 
 # Create your views here.
-
+@csrf_exempt
 def Lobby(request):
+    if request.POST:
+        print('Post MEthod', request.POST)
+        room = request.POST['room']
+        models.RoomMember.objects.create(name= "Top G cliff", room_name = room)
     return render(request, 'base/Lobby.html')
 
 def room(request):
-    return render(request, 'base/room.html')
+    RoomMembers = models.RoomMember.objects.all()
+    channelName = request.GET.get('channel')
+    data2 = {"data": [], "room" : channelName}
+    for x in RoomMembers:
+        data2["data"].append(x)
+
+    #     members = RoomMember.objects.get( # get by using 2 values
+    #     room_name=channelName,
+    # )
+
+    data = {'RoomMembers': RoomMembers}
+    return render(request, 'base/room.html', context=data2)
 
 
 def getToken(request): # get tokken to get access
