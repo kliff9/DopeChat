@@ -7,11 +7,11 @@ A Group video calling application using the Agora Web SDK with a Django backend.
 ## Technologies Used:
 ◼ HTML - The standard markup language for creating Web pages.
 
-◼ CSS - Describes how HTML elements are to be displayed on screen, paper, or in other media
+◼ Bootstrap - CSS Framework for developing responsive and mobile-first websites.
 
-◼ React. js - A JavaScript library for building user interfaces
+◼ DJango -  Python framework that makes it easier to create web sites using Python
  
-◼ Agora.io SDK - AReal-Time Engagement platform that provides cross-platform SDK’s for implementing voice, video and broadcasting capabilities
+◼ Agora.io SDK - A Real-Time Engagement platform that provides cross-platform SDK’s for implementing voice, video and broadcasting capabilities
 
 ## Website:
 
