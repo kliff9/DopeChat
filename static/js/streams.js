@@ -43,9 +43,7 @@ let joinAndDisplayLocalStream = async () => {
   localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
   let member = await createMember();
   let Cam = await localTracks[1];
-  let userslist = await getRoom();
-  // document.getElementById("mapp").innerHTML = userslist.data;
-  userlistLoop(userslist);
+
   let HD720 = await Cam.setEncoderConfiguration("720p_2").then(() => {
     console.log("Quality has been updated to", Cam._encoderConfig);
   });
@@ -93,9 +91,6 @@ let handleUserJoined = async (user, mediaType) => {
       player.remove();
     }
     let member = await getMember(user);
-    let userslist = await getRoom();
-    userlistLoop(userslist);
-
     player = `<div  class="video-container" id="user-container-${user.uid}">
           <div class="video-player" id="user-${user.uid}"></div>
           <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
@@ -127,13 +122,8 @@ let leaveAndRemoveLocalStream = async () => {
     localTracks[i].stop();
     localTracks[i].close();
   }
-  deleteMember();
 
   await client.leave();
-  //This is somewhat of an issue because if user leaves without actaull pressing leave button, it will not trigger
-
-  deleteMember();
-
   window.open("/", "_self");
 };
 
@@ -178,27 +168,6 @@ let createMember = async () => {
   return member;
 };
 
-// ------------------------------------------------ Grabs the User List  ----------------------------------------------------- \\\
-let getRoom = async () => {
-  let response = await fetch(`/get_user/?&room_name=${CHANNEL}`);
-  let member = await response.json();
-  console.log("GetROom:", member);
-  return member;
-};
-useradded = [];
-let userlistLoop = (userslist) => {
-  userslist.data.forEach((user) => {
-    if (!useradded.includes(user)) {
-      let userdiv = `<div class="button-60">${user}</div>`;
-      document
-        .getElementById("AllUsers")
-        .insertAdjacentHTML("beforeend", userdiv);
-      useradded.push(user);
-      console.log("added", useradded);
-    }
-  });
-};
-
 // ------------------------------------------------ Grabs the Users Information  ----------------------------------------------------- \\\
 
 let getMember = async (user) => {
@@ -209,24 +178,31 @@ let getMember = async (user) => {
   console.log("Getmember:", member);
   return member;
 };
-// ------------------------------------------------ Delete the Room Member  ----------------------------------------------------- \\\
 
-let deleteMember = async () => {
-  let response = await fetch("/delete_member/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name: NAME, room_name: CHANNEL, UID: UID }),
-  });
-  let member = await response.json();
-  console.log(NAME, "has been removed");
+AgoraRTC.onAutoplayFailed = () => {
+  const btn = document.createElement("button");
+  btn.innerText = "Click me to resume the audio/video playback";
+  btn.onClick = () => {
+    btn.remove();
+  };
+  document.body.append(btn);
 };
 
 let AutoplayCheck = (e) => {
   console.log(remoteUsers);
   console.log(UID);
   console.log(remoteUsers.UID);
+
+  // if (user1.audioTrack.isPlaying) {
+  //     user1.audioTrack.stop();
+  //     e.target.innerHTML = "Muted";
+  //     console.log("button IF was clicked")
+  //     return;
+  // }
+
+  // console.log("button was clicked")
+  // user1.audioTrack.play();
+  // e.target.innerHTML = "Playing";
 };
 // ------------------------------------------------ Calling the Main Function  ----------------------------------------------------- \\\
 
@@ -234,11 +210,9 @@ joinAndDisplayLocalStream();
 
 // ------------------------------------------------ Assinging Functions to the HTML  ----------------------------------------------------- \\\
 
-window.addEventListener("beforeunload", deleteMember);
 document
   .getElementById("leave-btn")
   .addEventListener("click", leaveAndRemoveLocalStream);
-
 document.getElementById("camera-btn").addEventListener("click", toggleCamera);
 document.getElementById("mic-btn").addEventListener("click", toggleMic);
 document.getElementById("user-audio").addEventListener("click", AutoplayCheck);
@@ -248,30 +222,4 @@ AgoraRTC.onMicrophoneChanged = (info) => {
   console.log("microphone changed!", info.state, info.device);
 };
 
-let joinAndDisplayLocalStreamRandom = async () => {
-  data = {
-    rooms: ["Apple", "Banana", "Orange"],
-    max: 2,
-  };
-  if (data.max == 2) {
-  }
-  pickOne = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-  CHANNEL = pickOne(data.rooms);
-
-  joinAndDisplayLocalStream();
-};
-
-let timerVar = setInterval(countTimer, 1000);
-let totalSeconds = 0;
-function countTimer() {
-  ++totalSeconds;
-  let hour = Math.floor(totalSeconds / 3600);
-  let minute = Math.floor((totalSeconds - hour * 3600) / 60);
-  let seconds = totalSeconds - (hour * 3600 + minute * 60);
-  if (hour < 10) hour = "0" + hour;
-  if (minute < 10) minute = "0" + minute;
-  if (seconds < 10) seconds = "0" + seconds;
-  document.getElementById("timer").innerHTML =
-    hour + ":" + minute + ":" + seconds;
-}
+// getD()

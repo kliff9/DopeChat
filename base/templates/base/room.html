@@ -3,44 +3,29 @@
 <main>
   <a href="{% url 'base:Lobby' %}"> <i class="fa-solid fa-house"></i></a>
   <section id="room-name-wrapper">
-    <h4 class="Alkalami bg-gradient-dark display-6">
-      ROOM: <span id="room-name"> </span>
-    </h4>
-    <div id="AllUsers" class="">
-      <div
-        class="w-25 display-6 d-flex justify-content-center m-auto -warning mb-0"
-      >
-        <span class="bg-gradient-warning-border">Users:</span>
-      </div>
-    </div>
+    <p>Room Name: <span id="room-name"></span></p>
+    <!-- <h3 id="mapp">Current Users:</h3> -->
+    <ul id="navigation">
+      {{room}} Current Users: {% for item in data %}
+      <li>{{item}}</li>
+      {% endfor %}
+    </ul>
     <button id="user-audio">LogCeck</button>
   </section>
   <section id="video-streams"></section>
 
-  <footer
-    class="footer py-5 bg-gradient-dark position-relative overflow-hidden"
-  >
-    <img
-      src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/shapes/waves-white.svg"
-      alt="pattern-lines"
-      class="position-absolute start-0 top-0 w-100 opacity-6"
-    />
-    <div class="container position-relative">
-      <div class="d-md-flex custom_row justify-content-evenly">
-        <div class="icon-wrapper">
-          <i class="fa-solid fa-microphone control-icon" id="mic-btn"></i>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-solid fa-video control-icon" id="camera-btn"></i>
-        </div>
-
-        <div class="icon-wrapper">
-          <i class="fa-regular fa-user-xmark control-icon" id="leave-btn"></i>
-        </div>
-        <div id="timer" class="Alkalami"></div>
-      </div>
+  <section id="controls-wrapper">
+    <div class="icon-wrapper">
+      <i class="fa-solid fa-microphone control-icon" id="mic-btn"></i>
     </div>
-  </footer>
+    <div class="icon-wrapper">
+      <i class="fa-solid fa-video control-icon" id="camera-btn"></i>
+    </div>
+
+    <div class="icon-wrapper">
+      <i class="fa-regular fa-user-xmark control-icon" id="leave-btn"></i>
+    </div>
+  </section>
 </main>
 
 <script

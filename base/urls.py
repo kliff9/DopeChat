@@ -12,6 +12,5 @@ urlpatterns = [
 
     path('create_member/', views.createMember),
     path('get_member/', views.getMember),
-    path('get_user/', views.getUserList),
-    path('delete_member/', views.deleteMember),
+#     path('delete_member/', views.deleteMember),
  ]
