@@ -15,25 +15,12 @@ from . import models
 # Create your views here.
 @csrf_exempt
 def Lobby(request):
-    if request.POST:
-        print('Post MEthod', request.POST)
-        room = request.POST['room']
-        models.RoomMember.objects.create(name= "Top G cliff", room_name = room)
+
     return render(request, 'base/Lobby.html')
 
 def room(request):
-    RoomMembers = models.RoomMember.objects.all()
-    channelName = request.GET.get('channel')
-    data2 = {"data": [], "room" : channelName}
-    for x in RoomMembers:
-        data2["data"].append(x)
 
-    #     members = RoomMember.objects.get( # get by using 2 values
-    #     room_name=channelName,
-    # )
-
-    data = {'RoomMembers': RoomMembers}
-    return render(request, 'base/room.html', context=data2)
+    return render(request, 'base/room.html')
 
 
 def getToken(request): # get tokken to get access
@@ -77,27 +64,29 @@ def getMember(request):
     name = member.name
     return JsonResponse({'name':member.name}, safe=False)
 
+def getUserList(request):
+    room_name = request.GET.get('room_name')
+    # name = request.GET.get('name')
+    RoomMembers = models.RoomMember.objects.all()
+    data2 = {"data": []}
+    for x in RoomMembers:
+        print(x)
+        if x.room_name == room_name:
+            data2["data"].append(x.name)
+            print(data2)
+
+
+    return JsonResponse({'data':data2["data"]}, safe=False)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-# @csrf_exempt
-# def deleteMember(request):
-#     data = json.loads(request.body)
-#     member = RoomMember.objects.get(
-#         name=data['name'],
-#         uid=data['UID'],
-#         room_name=data['room_name']
-#     )
-#     member.delete()
-#     return JsonResponse('Member deleted', safe=False)
+@csrf_exempt
+def deleteMember(request):
+    data = json.loads(request.body)
+    member = RoomMember.objects.get(
+        name=data['name'],
+        uid=data['UID'],
+        room_name=data['room_name']
+    )
+    member.delete()
+    return JsonResponse('Member has been removed', safe=False)

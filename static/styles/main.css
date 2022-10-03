@@ -8,6 +8,8 @@
   --bs-gradient-warning-left: #fbcf33;
   --bs-gradient-dark-right: #141727;
   --bs-gradient-dark-left: #3a416f;
+  /* --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0; */
 }
 
 /* body {
@@ -85,12 +87,17 @@
 }
 
 /* ----------------- Room Styling ------------------*/
+
+#room-name {
+  /* border-bottom: 3px solid var(--bs-gradient-warning-right); */
+}
 #room-name-wrapper {
   text-align: center;
   font-size: 18px;
 }
 
 #video-streams {
+  /* background-color: var(--bs-gradient-warning-left); */
   display: flex;
   flex-wrap: wrap;
   height: 85vh;
@@ -103,7 +110,7 @@
   flex-grow: 1;
   max-height: 100%;
   min-height: 350px;
-  border: 1px solid rgb(75, 93, 172);
+  border: 2px solid var(--bs-gradient-dark-left);
   border-radius: 5px;
   margin: 2px;
   background-color: rgba(198, 202, 219, 1);
@@ -156,7 +163,7 @@
   box-shadow: var(--shaddow);
   background-color: #fff;
   cursor: pointer;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
 }
 
@@ -214,4 +221,68 @@
 
 .min-vh-75 {
   min-height: 77vh;
+}
+
+/* CSS */
+.button-60 {
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 0.375em;
+  color: #363636;
+  display: inline-flex;
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  font-size: 1rem;
+  height: 2.5em;
+  padding: calc(0.5em - 1px) 1em;
+}
+
+.button-60:active {
+  border-color: #4a4a4a;
+  outline: 0;
+}
+
+.button-60:focus {
+  border-color: #485fc7;
+  outline: 0;
+}
+
+.button-60:hover {
+  border-color: #b5b5b5;
+}
+
+.button-60:focus:not(:active) {
+  box-shadow: rgba(72, 95, 199, 0.25) 0 0 0 0.125em;
+}
+
+.bg-gradient-warning-border {
+  border-bottom: 3px solid var(--bs-gradient-warning-right);
+}
+
+.Alkalami {
+  font-family: "Abyssinica", serif;
+  color: white;
+}
+
+#timer {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.custom_row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+.custom_row > * {
+  flex-shrink: 0;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-top: var(--bs-gutter-y);
 }
