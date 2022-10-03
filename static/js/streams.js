@@ -44,6 +44,12 @@ let joinAndDisplayLocalStream = async () => {
   let member = await createMember();
   let Cam = await localTracks[1];
 
+
+  let userlist = await UserList();
+  let users = userlist.users
+  let testin = await Testing();
+  console.log('functionuserlist', userlist)
+
   let HD720 = await Cam.setEncoderConfiguration("720p_2").then(() => {
     console.log("Quality has been updated to", Cam._encoderConfig);
   });
@@ -177,6 +183,21 @@ let getMember = async (user) => {
   let member = await response.json();
   console.log("Getmember:", member);
   return member;
+};
+
+let UserList = async () => {
+  let response = await fetch(
+    `/get_user/?room_name=${CHANNEL}`
+  );
+  let UL = await response.json();
+  console.log("Users:", UL);
+  return UL;
+};
+
+
+let Testing = async () => {
+
+  console.log("Test:");
 };
 
 AgoraRTC.onAutoplayFailed = () => {

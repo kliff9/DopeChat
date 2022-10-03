@@ -1,3 +1,4 @@
+from lib2to3.pgen2.driver import Driver
 from django.shortcuts import render
 from django.http import JsonResponse
 import random
@@ -15,25 +16,24 @@ from . import models
 # Create your views here.
 @csrf_exempt
 def Lobby(request):
-    if request.POST:
-        print('Post MEthod', request.POST)
-        room = request.POST['room']
-        models.RoomMember.objects.create(name= "Top G cliff", room_name = room)
+
     return render(request, 'base/Lobby.html')
 
 def room(request):
-    RoomMembers = models.RoomMember.objects.all()
-    channelName = request.GET.get('channel')
-    data2 = {"data": [], "room" : channelName}
-    for x in RoomMembers:
-        data2["data"].append(x)
+    # RoomMembers = models.RoomMember.objects.all()
+    # channelName = request.GET.get('channel')
+    # p = request.session.get('name')
+    # print(p)
+    # data2 = {"data": [], "room" : channelName}
+    # for x in RoomMembers:
+    #     data2["data"].append(x)
 
     #     members = RoomMember.objects.get( # get by using 2 values
     #     room_name=channelName,
     # )
 
-    data = {'RoomMembers': RoomMembers}
-    return render(request, 'base/room.html', context=data2)
+    # data = {'RoomMembers': RoomMembers}
+    return render(request, 'base/room.html')
 
 
 def getToken(request): # get tokken to get access
@@ -81,7 +81,16 @@ def getMember(request):
 
 
 
+def getUserList(request):
+    roomName = request.GET.get('room_name')
+    RoomMembers = models.RoomMember.objects.all()
+    data2 = {"data": []}
 
+    for x in RoomMembers:
+        if x.room_name == roomName:
+            data2["data"].append(x)
+    print(data2)
+    return JsonResponse({'users':RoomMembers}, safe=False)
 
 
 
