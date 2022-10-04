@@ -44,9 +44,17 @@ let joinAndDisplayLocalStream = async () => {
   let member = await createMember();
   let Cam = await localTracks[1];
 
+  console.log(member)
 
   let userlist = await UserList();
   let users = userlist.users
+
+  let userdiv = `<div class="button-60">${users}</div>`
+
+  document
+  .getElementById("AllUsers")
+  .insertAdjacentHTML("beforeend", userdiv);
+
   let testin = await Testing();
   console.log('functionuserlist', userlist)
 
@@ -91,12 +99,16 @@ let handleUserJoined = async (user, mediaType) => {
   let activated = 0;
   remoteUsers[user.uid] = user;
   await client.subscribe(user, mediaType);
+  // console.log("User has joined")
   if (mediaType === "video") {
     let player = document.getElementById(`user-container-${user.uid}`);
     if (player != null) {
       player.remove();
     }
     let member = await getMember(user);
+    let userlist = await UserList();
+    let users = userlist.users
+    await LoadUserList(users)
     player = `<div  class="video-container" id="user-container-${user.uid}">
           <div class="video-player" id="user-${user.uid}"></div>
           <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
@@ -130,6 +142,8 @@ let leaveAndRemoveLocalStream = async () => {
   }
 
   await client.leave();
+
+  deleteMember()
   window.open("/", "_self");
 };
 
@@ -184,6 +198,18 @@ let getMember = async (user) => {
   console.log("Getmember:", member);
   return member;
 };
+// ------------------------------------------------ Grabs the Member Information  ----------------------------------------------------- \\\
+
+let deleteMember = async () => {
+  let response = await fetch('/delete_member/', {
+      method:'POST',
+      headers: {
+          'Content-Type':'application/json'
+      },
+      body:JSON.stringify({'name':NAME, 'room_name':CHANNEL, 'UID':UID})
+  })
+  let member = await response.json()
+}
 
 let UserList = async () => {
   let response = await fetch(
@@ -193,7 +219,22 @@ let UserList = async () => {
   console.log("Users:", UL);
   return UL;
 };
+let AddedUsers = []
 
+let LoadUserList = async (users) => {
+  console.log("addedUsers:", AddedUsers)
+  users.forEach( hello = (user) => {
+    if (!(AddedUsers.includes(user))) {
+  let userdiv = `<div class="button-60">${user}</div>`
+  document
+  .getElementById("AllUsers")
+  .insertAdjacentHTML("beforeend", userdiv);
+  AddedUsers.push(user)
+    }
+
+  })
+
+};
 
 let Testing = async () => {
 
@@ -230,6 +271,8 @@ let AutoplayCheck = (e) => {
 joinAndDisplayLocalStream();
 
 // ------------------------------------------------ Assinging Functions to the HTML  ----------------------------------------------------- \\\
+window.addEventListener("beforeunload", deleteMember);
+
 
 document
   .getElementById("leave-btn")
@@ -244,3 +287,11 @@ AgoraRTC.onMicrophoneChanged = (info) => {
 };
 
 // getD()
+
+let RR = async () => {
+  const CHANNEL = "49ers";
+
+  joinAndDisplayLocalStream();
+
+};
+

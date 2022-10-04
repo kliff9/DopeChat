@@ -1,4 +1,3 @@
-from lib2to3.pgen2.driver import Driver
 from django.shortcuts import render
 from django.http import JsonResponse
 import random
@@ -83,30 +82,22 @@ def getMember(request):
 
 def getUserList(request):
     roomName = request.GET.get('room_name')
-    RoomMembers = models.RoomMember.objects.all()
+    RoomMembers = RoomMember.objects.all()
     data2 = {"data": []}
 
     for x in RoomMembers:
         if x.room_name == roomName:
-            data2["data"].append(x)
-    print(data2)
-    return JsonResponse({'users':RoomMembers}, safe=False)
+            data2["data"].append(x.name)
+    print('userlist: ', data2)
+    return JsonResponse({'users':data2["data"]}, safe=False)
 
-
-
-
-
-
-
-
-
-# @csrf_exempt
-# def deleteMember(request):
-#     data = json.loads(request.body)
-#     member = RoomMember.objects.get(
-#         name=data['name'],
-#         uid=data['UID'],
-#         room_name=data['room_name']
-#     )
-#     member.delete()
-#     return JsonResponse('Member deleted', safe=False)
+@csrf_exempt
+def deleteMember(request):
+    data = json.loads(request.body)
+    member = RoomMember.objects.get(
+        name=data['name'],
+        uid=data['UID'],
+        room_name=data['room_name']
+    )
+    member.delete()
+    return JsonResponse('Member deleted', safe=False)

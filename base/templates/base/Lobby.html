@@ -164,6 +164,12 @@
           </p>
           <a class="btn bg-gradient-warning">Read more</a>
         </div>
+        <button
+        id="RandomR"
+        class="btn bg-gradient-warning w-100 btn-lg mb-0 m4 mt-3"
+      >
+        Random_room
+      </button>
       </div>
     </div>
   </section>
@@ -193,6 +199,33 @@
   };
 
   Chat_form.addEventListener("submit", handleSubmit);
+
+  let RandomRoomButton = document.getElementById("RandomR");
+
+  let handleSubmit_R = async (e) => {
+    e.preventDefault();
+    console.log('handleSubmit_R')
+    // let room = e.target.room.value.toUpperCase();
+    let name = 'User'
+    let room = "TheRoom"
+    let response = await fetch(`/get_token/?channel=${room}`);
+    let data = await response.json();
+    console.log("data: ", data);
+
+    let UID = data.uid;
+    let token = data.token;
+    // A page session lasts as long as the tab or the browser is open, and survives over page reloads and restores.
+    sessionStorage.setItem("UID", UID);
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("room", room);
+    sessionStorage.setItem("name", name);
+
+    window.open("/room/", "_self"); //redirect
+
+  }
+
+  RandomRoomButton.addEventListener("click", handleSubmit_R);
+
 </script>
 
 {% endblock content %}
