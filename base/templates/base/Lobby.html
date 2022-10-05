@@ -33,27 +33,15 @@
       >
         <ul class="navbar-nav navbar-nav-hover ms-auto">
           <li class="nav-item mx-2">
-            <a href="javascript:void(0);" class="nav-link ps-2 cursor-pointer">
+            <a href="{% url 'base:Lobby' %}" class="nav-link ps-2 cursor-pointer">
               Home
             </a>
           </li>
-          <li class="nav-item mx-2">
-            <a href="javascript:void(0);" class="nav-link ps-2 cursor-pointer"
-              >News</a
-            >
-          </li>
-          <a href="javascript:void(0);" class="nav-link ps-2 cursor-pointer"
+      
+          <a href="{% url 'base:Support' %}" class="nav-link ps-2 cursor-pointer"
           >Support</a
         >
         </li>
-
-          <li class="nav-item mx-2">
-            <a
-              href="javascript:void(0);"
-              class="btn bg-gradient-warning mb-0 cursor-pointer"
-              >Sign In</a
-            >
-          </li>
         </ul>
       </div>
     </div>
@@ -87,7 +75,12 @@
         </div>
       </div>
     </div>
-
+    <button
+    id="RandomR"
+    class="btn bg-gradient-warning w-100 btn-lg mb-0 m4 mt-3"
+  >
+    Random_room
+  </button>
     <div class="container">
       <form 
         class="row bg-white shadow-lg mt-n6 rounded-3 pb-4 p-3 mx-sm-0 mx-1 position-relative"
@@ -164,15 +157,12 @@
           </p>
           <a class="btn bg-gradient-warning">Read more</a>
         </div>
-        <button
-        id="RandomR"
-        class="btn bg-gradient-warning w-100 btn-lg mb-0 m4 mt-3"
-      >
-        Random_room
-      </button>
+ 
       </div>
     </div>
   </section>
+
+ 
 </main>
 
 <script>
@@ -224,7 +214,33 @@
 
   }
 
-  RandomRoomButton.addEventListener("click", handleSubmit_R);
+  let currentdata
+  let max = 0
+  let Av = true
+
+  let RAAD = async (e) => {
+
+    console.log( "Before_currentdata: ", currentdata, 'Max: ',max)
+
+    if (Av) {
+      let current = await fetch(`/get_RandomRoom`)
+      currentdata = await current.json()
+      Av = false
+      console.log('currentdata:', currentdata, "Av:", Av)
+    }
+    max++
+
+    if (max == 2){ 
+    // let response2 = await fetch(`/get_RandomRoom`)
+    // data2 = await response2.json()
+    // console.log('data2:', data2)
+    max = 0
+    Av = true
+  }
+
+}
+
+  RandomRoomButton.addEventListener("click", RAAD);
 
 </script>
 

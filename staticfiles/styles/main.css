@@ -255,3 +255,24 @@
 .button-60:focus:not(:active) {
   box-shadow: rgba(72, 95, 199, 0.25) 0 0 0 0.125em;
 }
+
+.ORED {
+  background: #ff4500;
+}
+
+.BB {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 2px;
+  /* border-bottom: gray; */
+}
+
+.conactus-icon {
+  box-shadow: var(--shaddow);
+  background-color: #fff;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 15px;
+  margin-right: 1rem;
+}

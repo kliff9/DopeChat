@@ -3,7 +3,7 @@ from django.http import JsonResponse
 import random
 import time
 from agora_token_builder import RtcTokenBuilder
-from .models import RoomMember
+from .models import Room, RoomMember
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
@@ -13,26 +13,17 @@ from . import models
 
 
 # Create your views here.
-@csrf_exempt
 def Lobby(request):
 
     return render(request, 'base/Lobby.html')
 
 def room(request):
-    # RoomMembers = models.RoomMember.objects.all()
-    # channelName = request.GET.get('channel')
-    # p = request.session.get('name')
-    # print(p)
-    # data2 = {"data": [], "room" : channelName}
-    # for x in RoomMembers:
-    #     data2["data"].append(x)
 
-    #     members = RoomMember.objects.get( # get by using 2 values
-    #     room_name=channelName,
-    # )
-
-    # data = {'RoomMembers': RoomMembers}
     return render(request, 'base/room.html')
+
+def Support(request):
+
+    return render(request, 'base/Support.html')
 
 
 def getToken(request): # get tokken to get access
@@ -101,3 +92,23 @@ def deleteMember(request):
     )
     member.delete()
     return JsonResponse('Member deleted', safe=False)
+
+
+def GenerateRandomRoom(request):
+    # member = Room.objects.create(
+    #         RoomName=,
+    #         max=,
+    #         Available= 
+    #         )
+    Available = True
+    rooms = ['Bones', 'Psych', 'Big Bang Theory',  'Modern Family', ] 
+    max = 2
+    if Available:
+        room = random.choice(rooms)
+        Available = False # use old room name
+    max += 1
+    if max == 2: # generate a new value
+        max = 0
+        Available = True
+
+    return JsonResponse({'room':room }, safe=False)

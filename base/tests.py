@@ -4,7 +4,9 @@ from django.test import TestCase
 from django.test import Client
 import unittest
 
+from . import models
 
+import random
 
 from django.http import JsonResponse
 import random
@@ -58,12 +60,40 @@ class Test_Stream(TestCase):
 
         token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, channelName, uid, role, privilegeExpiredTs)
         print("Token with int uid: {}".format(token))
-        response = self.client.get('')
-        print('content: ', response)
+
 
         print('content: ', JsonResponse({'token': token, 'uid': uid}, safe=False))
         # response = self.client.get('room')
         # print('content: ', response.content)
 
-# if __name__ == '__main__':
-#     unittest.main()
+
+
+    def test_randomRoom(self):
+
+        Room002 = models.Room.objects.create(
+            RoomName='Room002',
+            max=2,
+            Available=True 
+            )
+        Room006 = models.Room.objects.create(
+            RoomName='Room006',
+            max=2,
+            Available=True 
+            )
+        Room008 = models.Room.objects.create(
+            RoomName='Room008',
+            max=2,
+            Available=True 
+            )
+
+        Available = True
+        rooms = [Room002, Room006, Room008]
+        max = 2
+        if Available:
+            room = random.choice(rooms)
+            Available = False # use old room name
+
+        if max == 2: # generate a new value
+            room = random.choice(rooms)
+            max = 0 
+        print('Rooms:', room)
