@@ -96,39 +96,78 @@ def deleteMember(request):
 
 
 def GenerateRandomRoom(request):
-    # Rooms = Room.objects.all()
+    RoomsQuery = Room.objects.all()
     Available_room = None
     Rooms = list(Room.objects.values('id','RoomName', 'max', 'Available'))
-    # Rooms[-1]["max"] = 1 
-    Rooms[0]["max"] = 1 
-    update = Room.objects.get(
-            id=2
-     )  
-    update.max = 0
-    update.save()
-    print(update.max)
-    for x in Rooms:
-        if x["max"] == 1:
+
+    # update = Room.objects.get(
+    #         id=2
+    #  )  
+    # update.max = 0
+    # update.save()
+
+    for x in range(0, len(Rooms)):
+        if Rooms[x]["max"] == 1:
   
             
-            print("Data: ", x, " is already in the system")
+            # print("Data: ", x, " is already in the system")
             Available_room = x
+            # Rooms[x]["max"] += 1
+            # Rooms[x]["Available"] = False
+            update = Room.objects.get(
+                id=Rooms[x]["id"]
+                )  
+            update.max = 2
+            update.Available = False
+            update.save()
 
     if Available_room is None:
-        Available_room = random.choice(Rooms)
+        try:
+            Available_rooms_left = [x for x in Rooms if x["Available"] == True]  
+            print('Rooms Left', Available_rooms_left)                  
+            Rn = random.randint(0,len(Available_rooms_left) - 1)
+       
 
+            Available_room = Available_rooms_left[Rn]
+            # Available_room["max"] += 1
+            update = Room.objects.get(
+                id=Available_room["id"]
+                )  
+            update.max = 1
+            update.save()
+            
+        except:
+            print("An exception occurred")
+
+        # Rooms[Rn]["max"] += 1
+        # print('Rooms Inside : ', Rooms)
+    
     print(Available_room)
-    print("Update:  ", update.max)
+    print(Rooms)
 
-    # Available = True
-    # rooms = ['Bones', 'Psych', 'Big Bang Theory',  'Modern Family', ] 
-    # max = 2
-    # if Available:
-    #     room = random.choice(rooms)
-    #     Available = False # use old room name
-    # max += 1
-    # if max == 2: # generate a new value
-    #     max = 0
-    #     Available = True
+
 
     return JsonResponse({'room':Available_room }, safe=False)
+
+# def GRR(request):
+#     Rooms = Room.objects.all()
+
+#     for x in Rooms:
+#         if x.max == 0:
+#             update = Room.objects.get(
+#                 id=x.id
+#             )  
+            
+#         # print("Data: ", x, " is already in the system")
+#             Available_room = json.dumps(x, default=str)
+#             print(Available_room)
+#     return JsonResponse({'room':"Rooim" }, safe=False)
+
+def RoomLeaving(request):
+    Rooms = Room.objects.all()
+    for x in Rooms:
+        x.max = 0
+        x.Available = True
+        x.save()
+        
+    return JsonResponse({'room':"Room has been Cleared" }, safe=False)

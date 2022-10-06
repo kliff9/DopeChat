@@ -17,4 +17,7 @@ urlpatterns = [
     path('get_user/', views.getUserList),
     path('get_RandomRoom/', views.GenerateRandomRoom),    
     path('delete_member/', views.deleteMember),
+    path('leave_RandomRoom/', views.RoomLeaving),
+
+    
  ]
