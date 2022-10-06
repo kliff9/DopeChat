@@ -1,3 +1,4 @@
+from turtle import up
 from django.shortcuts import render
 from django.http import JsonResponse
 import random
@@ -95,20 +96,39 @@ def deleteMember(request):
 
 
 def GenerateRandomRoom(request):
-    # member = Room.objects.create(
-    #         RoomName=,
-    #         max=,
-    #         Available= 
-    #         )
-    Available = True
-    rooms = ['Bones', 'Psych', 'Big Bang Theory',  'Modern Family', ] 
-    max = 2
-    if Available:
-        room = random.choice(rooms)
-        Available = False # use old room name
-    max += 1
-    if max == 2: # generate a new value
-        max = 0
-        Available = True
+    # Rooms = Room.objects.all()
+    Available_room = None
+    Rooms = list(Room.objects.values('id','RoomName', 'max', 'Available'))
+    # Rooms[-1]["max"] = 1 
+    Rooms[0]["max"] = 1 
+    update = Room.objects.get(
+            id=2
+     )  
+    update.max = 0
+    update.save()
+    print(update.max)
+    for x in Rooms:
+        if x["max"] == 1:
+  
+            
+            print("Data: ", x, " is already in the system")
+            Available_room = x
 
-    return JsonResponse({'room':room }, safe=False)
+    if Available_room is None:
+        Available_room = random.choice(Rooms)
+
+    print(Available_room)
+    print("Update:  ", update.max)
+
+    # Available = True
+    # rooms = ['Bones', 'Psych', 'Big Bang Theory',  'Modern Family', ] 
+    # max = 2
+    # if Available:
+    #     room = random.choice(rooms)
+    #     Available = False # use old room name
+    # max += 1
+    # if max == 2: # generate a new value
+    #     max = 0
+    #     Available = True
+
+    return JsonResponse({'room':Available_room }, safe=False)
