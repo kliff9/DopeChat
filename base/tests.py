@@ -14,24 +14,6 @@ import time
 from agora_token_builder import RtcTokenBuilder
 
 
-# class TestStringMethods(unittest.TestCase):
-#     def setUp(self):
-#         """Create user and client."""
-#         self.client = Client()  # new instanced, django test client to make http request
-
-#     def test_upper(self):
-#         self.assertEqual('foo'.upper(), 'FOO')
-
-#     def test_isupper(self):
-#         self.assertTrue('FOO'.isupper())
-#         self.assertFalse('Foo'.isupper())
-
-#     def test_split(self):
-#         s = 'hello world'
-#         self.assertEqual(s.split(), ['hello', 'world'])
-#         # check that s.split fails when the separator is not a string
-#         with self.assertRaises(TypeError):
-#             s.split(2)
 
 
 
@@ -73,62 +55,54 @@ class Test_Stream(TestCase):
     #     Room002 = Room.objects.create(
     #         RoomName='Room002',
     #         max=2,
-    #         Available=True 
+    #         Available=True
     #         )
     #     Room006 = Room.objects.create(
     #         RoomName='Room006',
     #         max=2,
-    #         Available=True 
+    #         Available=True
     #         )
     #     Room008 = Room.objects.create(
     #         RoomName='Room008',
     #         max=2,
-    #         Available=True 
+    #         Available=True
     #         )
 
-    #         Available = True
-    #         rooms = [Room002, Room006, Room008]
-    #         max = 2
-    #         if Available:
-    #             room = random.choice(rooms)
-    #             Available = False # use old room name
+    #     Available = True
+    #     rooms = [Room002, Room006, Room008]
+    #     max = 2
+    #     if Available:
+    #         room = random.choice(rooms)
+    #         Available = False # use old room name
 
-    #         if max == 2: # generate a new value
-    #             room = random.choice(rooms)
-    #             max = 0 
-    #         print('Rooms:', room)
+    #     if max == 2: # generate a new value
+    #         room = random.choice(rooms)
+    #         max = 0
+    #     print('Rooms:', room)
 
     def test_RR(self):
     # Rooms = Room.objects.all()
         Room002 = Room.objects.create(
             RoomName='Room002',
             max=0,
-            Available=True 
+            Available=True
             )
         Room006 = Room.objects.create(
             RoomName='Room006',
             max=0,
-            Available=True 
+            Available=True
             )
         Room008 = Room.objects.create(
             RoomName='Room008',
             max=0,
-            Available=True 
+            Available=True
             )
         Rooms = list(Room.objects.values('id','RoomName', 'max', 'Available'))
-    #     update = Room.objects.get(
-    #         id=2
-    #  )  
-    #     update.max = 0
-    #     update.save()
-    #     print(update.max)
         def Randomfunction(Rooms):
             Available_room = None
             for x in range(0, len(Rooms)):
                 if Rooms[x]["max"] == 1:
-  
-            
-                    # print("Data: ", x, " is already in the system")
+
                     Available_room = x
                     Rooms[x]["max"] += 1
                     Rooms[x]["Available"] = False
@@ -136,27 +110,46 @@ class Test_Stream(TestCase):
 
             if Available_room is None:
                 try:
-                    Available_rooms_left = [x for x in Rooms if x["Available"] == True]  
-                    print('Rooms Left', Available_rooms_left)                  
+                    Available_rooms_left = [x for x in Rooms if x["Available"] == True]
                     Rn = random.randint(0,len(Available_rooms_left) - 1)
-       
+
 
                     Available_room = Available_rooms_left[Rn]
                     Available_room["max"] += 1
                 except:
                     print("An exception occurred")
 
-                # Rooms[Rn]["max"] += 1
-                # print('Rooms Inside : ', Rooms)
-            print(Available_room)
-        Randomfunction(Rooms)
-        Randomfunction(Rooms)
-        Randomfunction(Rooms)
-        Randomfunction(Rooms)
-        Randomfunction(Rooms)
-        Randomfunction(Rooms)
-        Randomfunction(Rooms)
 
+        y = 0
+        while y < 7:
+            Randomfunction(Rooms)
+            y += 1
+        expected_Rooms =  [{'id': 1, 'RoomName': 'Room002', 'max': 2, 'Available': False}, {'id': 2, 'RoomName': 'Room006', 'max': 2, 'Available': False}, {'id': 3, 'RoomName': 'Room008', 'max': 2, 'Available': False}]
+
+        self.assertEqual(Rooms, expected_Rooms)
         print('Rooms: ', Rooms)
+
+    def test_Remove_Random_Room(self):
+
+        Room.objects.create(
+            RoomName='BlueRoom',
+            max=2,
+            Available=False
+            )
+        Room.objects.create(
+            RoomName='WhiteRoom',
+            max=2,
+            Available=False
+            )
+
+        _Room_ = Room.objects.get(
+        RoomName="BlueRoom"
+        )
+
+        _Room_.max -= 1
+        _Room_.Available = True
+        print(_Room_.Available)
+        self.assertEqual(_Room_.max, 1)
+        self.assertEqual(_Room_.Available, True)
 
 

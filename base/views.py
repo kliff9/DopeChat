@@ -8,6 +8,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.csrf import requires_csrf_token
+from django.core.serializers import serialize
 
 from . import models
 
@@ -101,46 +102,46 @@ def GenerateRandomRoom(request):
 
     # update = Room.objects.get(
     #         id=2
-    #  )  
+    #  )
     # update.max = 0
     # update.save()
 
     for x in range(0, len(Rooms)):
         if Rooms[x]["max"] == 1:
-  
-            
+
+
             # print("Data: ", x, " is already in the system")
-            Available_room = x
+            Available_room = Rooms[x]
             # Rooms[x]["max"] += 1
             # Rooms[x]["Available"] = False
             update = Room.objects.get(
                 id=Rooms[x]["id"]
-                )  
+                )
             update.max = 2
             update.Available = False
             update.save()
 
     if Available_room is None:
         try:
-            Available_rooms_left = [x for x in Rooms if x["Available"] == True]  
-            print('Rooms Left', Available_rooms_left)                  
+            Available_rooms_left = [x for x in Rooms if x["Available"] == True]
+            print('Rooms Left', Available_rooms_left)
             Rn = random.randint(0,len(Available_rooms_left) - 1)
-       
+
 
             Available_room = Available_rooms_left[Rn]
             # Available_room["max"] += 1
             update = Room.objects.get(
                 id=Available_room["id"]
-                )  
+                )
             update.max = 1
             update.save()
-            
+
         except:
             print("An exception occurred")
 
         # Rooms[Rn]["max"] += 1
         # print('Rooms Inside : ', Rooms)
-    
+
     print(Available_room)
     print(Rooms)
 
@@ -155,18 +156,21 @@ def GenerateRandomRoom(request):
 #         if x.max == 0:
 #             update = Room.objects.get(
 #                 id=x.id
-#             )  
-            
+#             )
+
 #         # print("Data: ", x, " is already in the system")
 #             Available_room = json.dumps(x, default=str)
 #             print(Available_room)
 #     return JsonResponse({'room':"Rooim" }, safe=False)
-
+@csrf_exempt
 def RoomLeaving(request):
-    Rooms = Room.objects.all()
-    for x in Rooms:
-        x.max = 0
-        x.Available = True
-        x.save()
-        
-    return JsonResponse({'room':"Room has been Cleared" }, safe=False)
+    data = json.loads(request.body)
+    _Room_ = Room.objects.get(
+        RoomName=data['RoomName']
+    )
+
+    _Room_.max -= 1
+    _Room_.Available = True
+    _Room_.save()
+    print(_Room_.max, _Room_.Available)
+    return JsonResponse({"message": "Room has been Cleared", "max": _Room_.max, "Available": _Room_.Available }, safe=False)

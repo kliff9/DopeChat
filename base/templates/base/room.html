@@ -2,6 +2,8 @@
 
 <main>
   <a href="{% url 'base:Lobby' %}"> <i class="fa-solid fa-house"></i></a>
+  <!------------------------------------------------ Room Name + UserList  ------------------------------------------------>
+
   <section id="room-name-wrapper">
     <h4 class="Alkalami bg-gradient-dark display-6">
       ROOM: <span id="room-name"> </span>
@@ -13,9 +15,16 @@
         <span class="bg-gradient-warning-border">Users:</span>
       </div>
     </div>
-    <button id="user-audio">LogCeck</button>
   </section>
+  <!------------------------------------------------ End of Room Name + UserList  ------------------------------------------------>
+
+  <!------------------------------------------------ Video Stream  Section ------------------------------------------------>
+
   <section id="video-streams"></section>
+
+  <!------------------------------------------------ End of Video Stream  Section ------------------------------------------------>
+
+  <!------------------------------------------------ Toggle Buttons  ------------------------------------------------>
 
   <footer
     class="footer py-5 bg-gradient-dark position-relative overflow-hidden"
@@ -41,6 +50,8 @@
       </div>
     </div>
   </footer>
+
+  <!------------------------------------------------ End of Toggle Buttons  ------------------------------------------------>
 </main>
 
 <script

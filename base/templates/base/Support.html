@@ -1,5 +1,7 @@
 {% extends 'base/main.html' %} {% load static %} {% block content %}
 
+    <!------------------------------------------------ Nav Bar  ------------------------------------------------>
+
 <nav class="navbar navbar-expand-lg bg-transparent py-3 shadow-none">
     <div class="container">
       <a class="navbar-brand w-8" href="#" data-config-id="brand">
@@ -36,7 +38,7 @@
               Home
             </a>
           </li>
-      
+
           <a href="{% url 'base:Support' %}" class="nav-link ps-2 cursor-pointer"
           >Support</a
         >
@@ -45,7 +47,11 @@
       </div>
     </div>
   </nav>
+    <!------------------------------------------------ End of Nav Bar  ------------------------------------------------>
 
+
+
+        <!------------------------------------------------ Contact Us   ------------------------------------------------>
 
   <section class="ftco-section">
     <div class="container">
@@ -154,7 +160,7 @@
                         <span>Email:</span>
                         <a href="mailto:info@yoursite.com">DopeChatHelp@help.com</a>
                       </p>
-                    </div>                   
+                    </div>
                   </div>
                   <div class=" w-100 d-flex align-items-baseline">
                     <div
@@ -167,9 +173,8 @@
                         <span>Twitter:</span>
                         <a href="#">twitter.com/DopeChat</a>
                       </p>
-                    </div>                   
+                    </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -177,6 +182,10 @@
         </div>
       </div>
     </div>
+
+
+          <!------------------------------------------------ End Contact Us  ------------------------------------------------>
+
   </section>
 
   {% endblock content %}
