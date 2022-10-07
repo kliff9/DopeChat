@@ -193,7 +193,7 @@ let UserList = async () => {
   let UL = await response.json();
   console.log("Users:", UL);
   console.log("addedUsers:", AddedUsers);
-  RoomUserList = UL.users;
+  let RoomUserList = UL.users;
   RoomUserList.forEach(
     (hello = (user) => {
       if (!AddedUsers.includes(user)) {
