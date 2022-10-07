@@ -61,12 +61,12 @@ let joinAndDisplayLocalStream = async () => {
   localTracks[1].play(`user-${UID}`);
   await client.publish([localTracks[0], localTracks[1]]);
 
-  console.log(
-    "Cam: ",
-    Cam.getMediaStreamTrack().getSettings(),
-    "CamVideoStats: ",
-    client.getLocalVideoStats()
-  );
+  // console.log(
+  //   "Cam: ",
+  //   Cam.getMediaStreamTrack().getSettings(),
+  //   "CamVideoStats: ",
+  //   client.getLocalVideoStats()
+  // );
 };
 
 // ------------------------------------------------ Subscribes the User to the Channel upon joining ----------------------------------------------------- \\\
@@ -235,7 +235,7 @@ AgoraRTC.onAutoplayFailed = () => {
 joinAndDisplayLocalStream();
 
 // ------------------------------------------------ Assinging Functions to the HTML  ----------------------------------------------------- \\\
-window.addEventListener("beforeunload", deleteMember);
+// window.addEventListener("beforeunload", deleteMember);
 window.addEventListener("beforeunload", deleteRoom);
 
 document

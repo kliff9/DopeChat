@@ -1,13 +1,19 @@
 {% extends 'base/main.html' %} {% load static %} {% block content %}
 
 <main>
-  <a href="{% url 'base:Lobby' %}"> <i class="fa-solid fa-house"></i></a>
-  <!------------------------------------------------ Room Name + UserList  ------------------------------------------------>
+  <!--                  Room Name + UserList                      -->
 
   <section id="room-name-wrapper">
-    <h4 class="Alkalami bg-gradient-dark display-6">
-      ROOM: <span id="room-name"> </span>
-    </h4>
+    <div class="Alkalami bg-gradient-dark display-6 pt-3">
+      ROOM:
+      <span id="room-name"></span>
+      <img
+        src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/shapes/waves-white.svg"
+        alt="pattern-lines"
+        class="position-absolute start-0 top-0 w-100 opacity-6"
+      />
+    </div>
+
     <div id="AllUsers" class="">
       <div
         class="w-25 display-6 d-flex justify-content-center m-auto -warning mb-0"
@@ -16,7 +22,8 @@
       </div>
     </div>
   </section>
-  <!------------------------------------------------ End of Room Name + UserList  ------------------------------------------------>
+
+  <!--                                   End of Room Name + UserList              -->
 
   <!------------------------------------------------ Video Stream  Section ------------------------------------------------>
 

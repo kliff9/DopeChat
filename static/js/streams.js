@@ -45,7 +45,7 @@ let joinAndDisplayLocalStream = async () => {
 
   let userlist = await UserList();
 
-  let HD720 = await Cam.setEncoderConfiguration("1080p_2").then(() => {
+  let HD720 = await Cam.setEncoderConfiguration("1080p_1").then(() => {
     console.log("Quality has been updated to", Cam._encoderConfig);
   });
   remoteUsers[UID] = member;
