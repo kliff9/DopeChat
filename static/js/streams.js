@@ -1,5 +1,5 @@
 // ------------------------------------------------ Basic Setup for Setting up the Stream  -------------------------------------------- \\\
-
+//
 const APP_ID = "afa463fb93f64fbb9dc55922464e29c9";
 
 const TOKEN = sessionStorage.getItem("token");
@@ -45,7 +45,7 @@ let joinAndDisplayLocalStream = async () => {
 
   let userlist = await UserList();
 
-  let HD720 = await Cam.setEncoderConfiguration("1080p_2").then(() => {
+  let HD720 = await Cam.setEncoderConfiguration("720p_1").then(() => {
     console.log("Quality has been updated to", Cam._encoderConfig);
   });
   remoteUsers[UID] = member;
@@ -183,7 +183,6 @@ let deleteMember = async () => {
     },
     body: JSON.stringify({ name: NAME, room_name: CHANNEL, UID: UID }),
   });
-  let member = await response.json();
 };
 
 let AddedUsers = [];

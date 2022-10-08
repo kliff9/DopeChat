@@ -1,55 +1,6 @@
-{% extends 'base/main.html' %} {% load static %} {% block content %}
-
-<main>
+{% extends 'base/Nav.html' %} {% load static %} {% block nav %}
 
 
-      <!------------------------------------------------ Navigation Section ------------------------------------------------>
-
-  <nav class="navbar navbar-expand-lg bg-transparent py-3 shadow-none">
-    <div class="container">
-      <a class="navbar-brand w-8" href="#" data-config-id="brand">
-        <img
-          src="https://cdn.freelogodesign.org/files/8db4745fa99d42ec99cbff6e3d3fef42/thumb/logo_200x200.png?v=637993167120000000"
-          width="70"
-          height="70"
-          alt=""
-        />
-      </a>
-
-      <button
-        class="navbar-toggler shadow-none ms-2"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navigation"
-        aria-controls="navigation"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon mt-2">
-          <span class="navbar-toggler-bar bar1"></span>
-          <span class="navbar-toggler-bar bar2"></span>
-          <span class="navbar-toggler-bar bar3"></span>
-        </span>
-      </button>
-      <div
-        class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0"
-        id="navigation"
-      >
-        <ul class="navbar-nav navbar-nav-hover ms-auto">
-          <li class="nav-item mx-2">
-            <a href="{% url 'base:Lobby' %}" class="nav-link ps-2 cursor-pointer">
-              Home
-            </a>
-          </li>
-
-          <a href="{% url 'base:Support' %}" class="nav-link ps-2 cursor-pointer"
-          >Support</a
-        >
-        </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
       <!------------------------------------------------ Header + Forms to Join a Room ------------------------------------------------>
 
@@ -234,7 +185,8 @@
 </section>
   <!------------------------------------------------ End of Features  ------------------------------------------------>
 
-</main>
+
+
 
 <script>
   // ------------------------------------------------ Function that sends Information to the stream.js -------------------------------------------- \\\
@@ -284,4 +236,4 @@
 
 </script>
 
-{% endblock content %}
+{% endblock nav %}
