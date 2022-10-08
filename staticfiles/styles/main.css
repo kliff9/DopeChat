@@ -293,3 +293,8 @@
     var(--bs-gradient-warning-left)
   );
 }
+
+.Alkalami {
+  font-family: Alkalami;
+  color: white;
+}
