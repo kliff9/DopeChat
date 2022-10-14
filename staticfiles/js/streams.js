@@ -125,13 +125,19 @@ let leaveAndRemoveLocalStream = async () => {
 // ------------------------------------------------ Allow User to Toggle the Camera ----------------------------------------------------- \\\
 
 let toggleCamera = async (e) => {
-  console.log("TOGGLE CAMERA TRIGGERED");
+  console.log("TOGGLE CAMERA TRIGGERED", localTracks[1]);
+  
   if (localTracks[1].enabled) {
     await localTracks[1].setEnabled(false);
-    e.target.style.backgroundColor = "#fff";
+
+    e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
+    console.log('FFF set to disable')
+    
   } else {
     await localTracks[1].setEnabled(true);
-    e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
+    e.target.style.backgroundColor = "#fff";
+    console.log("FFF set to enabled")
+
   }
 };
 // ------------------------------------------------ Allow User to Toggle the Microphone  ----------------------------------------------------- \\\
