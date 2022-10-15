@@ -107,6 +107,8 @@
   border-radius: 5px;
   margin: 2px;
   background-color: rgba(198, 202, 219, 1);
+  background-image: url("http://alpha-baseball.com/wp-content/uploads/2016/11/blank-avatar.png");
+
   position: relative;
 }
 
@@ -114,7 +116,11 @@
   height: 100%;
   width: 100%;
 }
-
+.selff div {
+  background-color: #f53939 !important;
+  height: unset !important;
+  width: unset !important;
+}
 .video-player > * {
   border-radius: 5px;
 }

@@ -52,7 +52,7 @@ let joinAndDisplayLocalStream = async () => {
 
   let player = `<div  class="video-container" id="user-container-${UID}">
                    <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
-                     <div class="video-player" id="user-${UID}"></div>
+                     <div class="video-player  selff" id="user-${UID}"></div>
                   </div>`;
 
   document
