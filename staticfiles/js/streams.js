@@ -126,18 +126,17 @@ let leaveAndRemoveLocalStream = async () => {
 
 let toggleCamera = async (e) => {
   console.log("TOGGLE CAMERA TRIGGERED", localTracks[1]);
-  
   if (localTracks[1].enabled) {
     await localTracks[1].setEnabled(false);
 
     e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
-    console.log('FFF set to disable')
-    
+    remove_camera_css("0%");
+    console.log("FFF set to disable");
   } else {
+    remove_camera_css("100%");
     await localTracks[1].setEnabled(true);
     e.target.style.backgroundColor = "#fff";
-    console.log("FFF set to enabled")
-
+    console.log("FFF set to enabled");
   }
 };
 // ------------------------------------------------ Allow User to Toggle the Microphone  ----------------------------------------------------- \\\
@@ -235,6 +234,11 @@ AgoraRTC.onAutoplayFailed = () => {
   document.body.append(btn);
 };
 
+let remove_camera_css = (height) => {
+  const self = document.querySelector(".selff");
+  console.log(self);
+  self.style.height = height;
+};
 // ------------------------------------------------ Calling the Main Function  ----------------------------------------------------- \\\
 
 joinAndDisplayLocalStream();

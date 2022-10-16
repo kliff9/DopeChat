@@ -126,16 +126,10 @@ let leaveAndRemoveLocalStream = async () => {
 
 let toggleCamera = async (e) => {
   console.log("TOGGLE CAMERA TRIGGERED", localTracks[1]);
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> a478adaa99d5db1620bb6f1bc7005076d773cb81
   if (localTracks[1].enabled) {
     await localTracks[1].setEnabled(false);
 
     e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
-<<<<<<< HEAD
     remove_camera_css("0%");
     console.log("FFF set to disable");
   } else {
@@ -143,15 +137,6 @@ let toggleCamera = async (e) => {
     await localTracks[1].setEnabled(true);
     e.target.style.backgroundColor = "#fff";
     console.log("FFF set to enabled");
-=======
-    console.log('FFF set to disable')
-    
-  } else {
-    await localTracks[1].setEnabled(true);
-    e.target.style.backgroundColor = "#fff";
-    console.log("FFF set to enabled")
-
->>>>>>> a478adaa99d5db1620bb6f1bc7005076d773cb81
   }
 };
 // ------------------------------------------------ Allow User to Toggle the Microphone  ----------------------------------------------------- \\\
