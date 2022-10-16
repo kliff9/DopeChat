@@ -118,7 +118,11 @@
   height: 100%;
   width: 100%;
 }
-
+.selff div {
+  background-color: #f53939 !important;
+  height: unset !important;
+  width: unset !important;
+}
 .video-player > * {
   border-radius: 5px;
 }

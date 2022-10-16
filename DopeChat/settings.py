@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'base',
     'fontawesomefree',
 
+
     ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
+
 
 ]
 
