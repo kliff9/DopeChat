@@ -52,7 +52,7 @@ let joinAndDisplayLocalStream = async () => {
 
   let player = `<div  class="video-container" id="user-container-${UID}">
                    <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
-                     <div class="video-player" id="user-${UID}"></div>
+                     <div class="video-player  selff" id="user-${UID}"></div>
                   </div>`;
 
   document
@@ -125,13 +125,19 @@ let leaveAndRemoveLocalStream = async () => {
 // ------------------------------------------------ Allow User to Toggle the Camera ----------------------------------------------------- \\\
 
 let toggleCamera = async (e) => {
-  console.log("TOGGLE CAMERA TRIGGERED");
+  console.log("TOGGLE CAMERA TRIGGERED", localTracks[1]);
+
   if (localTracks[1].enabled) {
     await localTracks[1].setEnabled(false);
-    e.target.style.backgroundColor = "#fff";
-  } else {
-    await localTracks[1].setEnabled(true);
+
     e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
+    remove_camera_css("0%");
+    console.log("FFF set to disable");
+  } else {
+    remove_camera_css("100%");
+    await localTracks[1].setEnabled(true);
+    e.target.style.backgroundColor = "#fff";
+    console.log("FFF set to enabled");
   }
 };
 // ------------------------------------------------ Allow User to Toggle the Microphone  ----------------------------------------------------- \\\
@@ -229,6 +235,11 @@ AgoraRTC.onAutoplayFailed = () => {
   document.body.append(btn);
 };
 
+let remove_camera_css = (height) => {
+  const self = document.querySelector(".selff");
+  console.log(self);
+  self.style.height = height;
+};
 // ------------------------------------------------ Calling the Main Function  ----------------------------------------------------- \\\
 
 joinAndDisplayLocalStream();

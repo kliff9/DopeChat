@@ -106,7 +106,11 @@
   border: 1px solid rgb(75, 93, 172);
   border-radius: 5px;
   margin: 2px;
-  background-color: rgba(198, 202, 219, 1);
+  /* background-color: rgba(198, 202, 219, 1); */
+  background-image: url("https://picresize.com/images/rsz_1146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png");
+  background-size: cover;
+  background-position: center;
+
   position: relative;
 }
 
