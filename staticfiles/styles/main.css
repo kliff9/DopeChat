@@ -106,8 +106,10 @@
   border: 1px solid rgb(75, 93, 172);
   border-radius: 5px;
   margin: 2px;
-  /* background-color: rgba(198, 202, 219, 1); */
-  background-image: url("https://picresize.com/images/rsz_1146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png");
+  background-color: rgba(198, 202, 219, 1);
+  /* background-image: url("https://i.imgur.com/3Lqi5dZ.png"); */
+  background-image: url("../images/smiley.png");
+
   background-size: cover;
   background-position: center;
   position: relative;
@@ -117,11 +119,7 @@
   height: 100%;
   width: 100%;
 }
-.selff div {
-  background-color: #f53939 !important;
-  height: unset !important;
-  width: unset !important;
-}
+
 .video-player > * {
   border-radius: 5px;
 }

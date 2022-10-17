@@ -180,14 +180,20 @@ let getMember = async (user) => {
 };
 // ------------------------------------------------ Grabs the Member Information  ----------------------------------------------------- \\\
 
-let deleteMember = async () => {
+let deleteMember = async (event) => {
+  console.log("Delete Member Called:");
+  // event.preventDefault();
   let response = await fetch("/delete_member/", {
     method: "POST",
+    RequestMode: "no-cors",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name: NAME, room_name: CHANNEL, UID: UID }),
   });
+  let deletedmember = await response.json();
+
+  console.log(deletedmember);
 };
 
 let AddedUsers = [];
@@ -212,6 +218,7 @@ let UserList = async () => {
 };
 
 let deleteRoom = async () => {
+  console.log("Random: ", Random);
   if (Random) {
     let response = await fetch("/leave_RandomRoom/", {
       method: "POST",

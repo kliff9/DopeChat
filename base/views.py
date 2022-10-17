@@ -86,6 +86,7 @@ def getUserList(request):
 @csrf_exempt
 def deleteMember(request):
     data = json.loads(request.body)
+    print(data)
     member = RoomMember.objects.get(
         name=data['name'],
         uid=data['UID'],
