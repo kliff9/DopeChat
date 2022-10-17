@@ -105,10 +105,12 @@ let handleUserJoined = async (user, mediaType) => {
 let handleUserLeft = async (user) => {
   delete remoteUsers[user.uid];
   document.getElementById(`user-container-${user.uid}`).remove();
+  console.log(deletemem);
+  document.getElementById(deletemem).remove();
 };
 
 // ------------------------------------------------ Remove the User from the Stream ----------------------------------------------------- \\\
-
+let deletemem;
 let leaveAndRemoveLocalStream = async () => {
   for (let i = 0; localTracks.length > i; i++) {
     localTracks[i].stop();
@@ -118,8 +120,10 @@ let leaveAndRemoveLocalStream = async () => {
   await client.leave();
 
   deleteRoom();
-  deleteMember();
+  deletemem = await deleteMember();
+
   window.open("/", "_self");
+  // window.location.assign("http://www.mozilla.org");
 };
 
 // ------------------------------------------------ Allow User to Toggle the Camera ----------------------------------------------------- \\\
@@ -179,20 +183,18 @@ let getMember = async (user) => {
   return member;
 };
 // ------------------------------------------------ Grabs the Member Information  ----------------------------------------------------- \\\
-
 let deleteMember = async (event) => {
   console.log("Delete Member Called:");
   // event.preventDefault();
   let response = await fetch("/delete_member/", {
     method: "POST",
-    RequestMode: "no-cors",
+    mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name: NAME, room_name: CHANNEL, UID: UID }),
   });
   let deletedmember = await response.json();
-
   console.log(deletedmember);
 };
 
@@ -204,10 +206,11 @@ let UserList = async () => {
   console.log("Users:", UL);
   console.log("addedUsers:", AddedUsers);
   let RoomUserList = UL.users;
+  let userdiv;
   RoomUserList.forEach(
     (hello = (user) => {
       if (!AddedUsers.includes(user)) {
-        let userdiv = `<div class="button-60">${user}</div>`;
+        userdiv = `<div class="button-60" id="${user}">${user}</div>`;
         document
           .getElementById("AllUsers")
           .insertAdjacentHTML("beforeend", userdiv);
@@ -215,6 +218,16 @@ let UserList = async () => {
       }
     })
   );
+};
+
+let UserList_delete_user = async (user) => {
+  // if (RoomUserList.length !== AddedUsers.length) {
+  //   console.log("uneven", RoomUserList.length, AddedUsers.length);
+  // document.getElementById(user).remove();
+  // const index = AddedUsers.indexOf(user);
+  // AddedUsers.splice(index, 1);
+  // console.log("UDU update: ", AddedUsers);
+  // }
 };
 
 let deleteRoom = async () => {

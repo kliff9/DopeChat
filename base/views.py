@@ -87,13 +87,14 @@ def getUserList(request):
 def deleteMember(request):
     data = json.loads(request.body)
     print(data)
+    mem = data['name']
     member = RoomMember.objects.get(
         name=data['name'],
         uid=data['UID'],
         room_name=data['room_name']
     )
     member.delete()
-    return JsonResponse('Member deleted', safe=False)
+    return JsonResponse({'text': "member deleted", 'mem': mem }, safe=False)
 
 
 def GenerateRandomRoom(request):
