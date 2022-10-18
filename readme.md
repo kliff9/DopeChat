@@ -19,7 +19,12 @@ https://dopechat-production.up.railway.app/
 
 ## Preview
 
-TBA
+
+https://user-images.githubusercontent.com/32655437/196547736-41c47aa2-a793-49dc-9322-653edfe25f4c.mp4
+
+
+
+
 
 ## How to use this source code
 
