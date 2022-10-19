@@ -2,7 +2,7 @@
 
 ## Description
 
-A Group video calling application using the Agora Web SDK with a Django backend.
+A Group video calling application using the Agora Web SDK with a Django.
 
 ## Technologies Used:
 ◼ HTML - The standard markup language for creating Web pages.
@@ -69,3 +69,7 @@ const APP_ID = 'YOUR APP ID'
 ```
 python manage.py runserver
 ```
+
+
+ 
+
