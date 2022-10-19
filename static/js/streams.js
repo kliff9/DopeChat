@@ -42,7 +42,6 @@ let joinAndDisplayLocalStream = async () => {
   let member = await createMember();
   let Cam = await localTracks[1];
 
-  console.log(member);
 
   let userlist = await UserList();
 
@@ -76,11 +75,9 @@ let handleUserJoined = async (user, mediaType) => {
   let activated = 0;
   remoteUsers[user.uid] = user;
   await client.subscribe(user, mediaType);
-  console.log('PLAYERRMED: ', mediaType)
 
   let player = null
   if (mediaType === "video") {
-    console.log('Video was called')
      player = document.getElementById(`user-container-${user.uid}`);
     if (player != null) {
       player.remove();
@@ -97,7 +94,6 @@ let handleUserJoined = async (user, mediaType) => {
       .insertAdjacentHTML("beforeend", player);
     user.videoTrack.play(`user-${user.uid}`);
   }
-  console.log('PLAYERR: ', player, mediaType, activated)
 
   if (mediaType === "audio") {
     user.audioTrack.play();
@@ -117,20 +113,21 @@ let handleUserLeft = async (user) => {
 };
 
 // ------------------------------------------------ Remove the User from the Stream ----------------------------------------------------- \\\
-let rrr = Math.floor(Math.random() * 18);
 let leaveAndRemoveLocalStream = async () => {
 
   deleteMember();
 
+  if (Random) {
+
+    deleteRoom();
+       } 
 
   for (let i = 0; localTracks.length > i; i++) {
     localTracks[i].stop();
     localTracks[i].close();
   }
-  if (Random) {
 
-   deleteRoom();
-      } 
+
 
   await client.leave();
 
@@ -152,12 +149,10 @@ let toggleCamera = async (e) => {
 
     e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
     remove_camera_css("0%", false);
-    console.log("FFF set to disable");
   } else {
     remove_camera_css("100%", true);
     await localTracks[1].setEnabled(true);
     e.target.style.backgroundColor = "#fff";
-    console.log("FFF set to enabled");
   }
 };
 // ------------------------------------------------ Allow User to Toggle the Microphone  ----------------------------------------------------- \\\
@@ -166,7 +161,6 @@ let toggleMic = async (e) => {
   console.log("TOGGLE MIC TRIGGERED");
   if (localTracks[0].muted) {
     await localTracks[0].setMuted(false);
-    console.log("The Mic Has been Umuted");
     e.target.style.backgroundColor = "#fff";
   } else {
     await localTracks[0].setMuted(true);
@@ -196,7 +190,6 @@ let getMember = async (user) => {
     `/get_member/?UID=${user.uid}&room_name=${CHANNEL}`
   );
   let member = await response.json();
-  console.log("Getmember:", member);
   return member;
 };
 // ------------------------------------------------ Deletes the Member Information  ----------------------------------------------------- \\\
@@ -212,10 +205,9 @@ let deleteMember = async () => {
     body: JSON.stringify({ name: NAME, room_name: CHANNEL, UID: UID }),
   });
   let deletedmember = await response.json();
-  console.log(deletedmember)
 };
 
-// ------------------------------------------------ Grabs The UserList  ----------------------------------------------------- \\\
+// ------------------------------------------------ Grabs The UserList And Updates & Deletes new users  ----------------------------------------------------- \\\
 
 let AddedUsers = [];
 
@@ -224,7 +216,6 @@ let UserList = async () => {
   let response = await fetch(`/get_user/?room_name=${CHANNEL}`);
   let UL = await response.json();
   let RoomUserList = UL.users;
-  console.log("addedUsers:", AddedUsers, 'RoomUserlist', RoomUserList);
   let userdiv;
   RoomUserList.forEach(
     (hello = (user) => {
@@ -252,7 +243,6 @@ let UserList_delete_user = async (RL) => {
 
       const index = AddedUsers.indexOf(user);
       AddedUsers.splice(index, 1);
-      console.log("UDU update: ", AddedUsers);
       }
 
     })
@@ -264,7 +254,6 @@ let UserList_delete_user = async (RL) => {
 
 
 let deleteRoom = async () => {
-  console.log("Random: ", Random);
 
     let response = await fetch("/leave_RandomRoom/", {
       method: "POST",
@@ -273,19 +262,20 @@ let deleteRoom = async () => {
       },
       body: JSON.stringify({ RoomName: CHANNEL }),
     });
-    let postupdate = await response.json();
-    console.log("Post Update:", postupdate);
-  
+    let postupdate = await response.json();  
 };
 
-AgoraRTC.onAutoplayFailed = () => {
-  const btn = document.createElement("button");
-  btn.innerText = "Click me to resume the audio/video playback";
-  btn.onClick = () => {
-    btn.remove();
-  };
-  document.body.append(btn);
-};
+// AgoraRTC.onAutoplayFailed = () => {
+//   const btn = document.createElement("button");
+//   btn.innerText = "Click me to resume the audio/video playback";
+//   btn.onClick = () => {
+//     btn.remove();
+//   };
+//   document.body.append(btn);
+// };
+
+
+// ------------------------------------------------ Removes the CSS to show Avatar ----------------------------------------------------- \\\
 
 let remove_camera_css = (height) => {
   const self = document.querySelector(".selff");
@@ -304,12 +294,7 @@ window.addEventListener("beforeunload", deleteRoom);
 window.addEventListener("beforeunload", deleteMember);
   
 
-// window.addEventListener("beforeunload ", function(event)  {
-//   window.alert("alert")
-//   alert("yoas")
-// });
 
-// window.onbeforeunload = deleteRoom
 
 document
   .getElementById("leave-btn")
