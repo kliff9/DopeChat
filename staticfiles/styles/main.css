@@ -108,7 +108,7 @@
   margin: 2px;
   background-color: rgba(198, 202, 219, 1);
   /* background-image: url("https://i.imgur.com/3Lqi5dZ.png"); */
-  background-image: url("../images/smiley.png");
+  /* background-image: url("../images/smiley.png"); */
 
   background-size: cover;
   background-position: center;
@@ -301,5 +301,10 @@
 
 .Alkalami {
   font-family: Alkalami;
+
   color: white;
+}
+#timer {
+  align-self: center;
+  font-size: 2.1rem;
 }

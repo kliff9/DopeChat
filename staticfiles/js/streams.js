@@ -1,5 +1,6 @@
 // ------------------------------------------------ Basic Setup for Setting up the Stream  -------------------------------------------- \\\
 //
+
 const APP_ID = "afa463fb93f64fbb9dc55922464e29c9";
 
 const TOKEN = sessionStorage.getItem("token");
@@ -50,7 +51,7 @@ let joinAndDisplayLocalStream = async () => {
   });
   remoteUsers[UID] = member;
 
-  let player = `<div  class="video-container" id="user-container-${UID}">
+  let player = `<div  class="video-container" style="background-image: url('../static/images/smiley.png');" id="user-container-${UID}">
                    <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
                      <div class="video-player  selff" id="user-${UID}"></div>
                   </div>`;
@@ -70,20 +71,24 @@ let joinAndDisplayLocalStream = async () => {
 };
 
 // ------------------------------------------------ Subscribes the User to the Channel upon joining ----------------------------------------------------- \\\
-
+Added = true
 let handleUserJoined = async (user, mediaType) => {
   let activated = 0;
   remoteUsers[user.uid] = user;
   await client.subscribe(user, mediaType);
+  console.log('PLAYERRMED: ', mediaType)
+
+  let player = null
   if (mediaType === "video") {
-    let player = document.getElementById(`user-container-${user.uid}`);
+    console.log('Video was called')
+     player = document.getElementById(`user-container-${user.uid}`);
     if (player != null) {
       player.remove();
     }
     let member = await getMember(user);
     let userlist = await UserList();
 
-    player = `<div  class="video-container" id="user-container-${user.uid}">
+    player = `<div  class="video-container" style="background-image: url('../static/images/smiley.png');" id="user-container-${user.uid}">
           <div class="video-player" id="user-${user.uid}"></div>
           <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
       </div>`;
@@ -92,48 +97,64 @@ let handleUserJoined = async (user, mediaType) => {
       .insertAdjacentHTML("beforeend", player);
     user.videoTrack.play(`user-${user.uid}`);
   }
+  console.log('PLAYERR: ', player, mediaType, activated)
+
   if (mediaType === "audio") {
     user.audioTrack.play();
   }
 
   activated += 1;
-  console.log("activated: ", activated);
 };
 
 // ------------------------------------------------ Remove the User Video from the html ----------------------------------------------------- \\\
 
 let handleUserLeft = async (user) => {
+  console.log('user left: ', user)
   delete remoteUsers[user.uid];
   document.getElementById(`user-container-${user.uid}`).remove();
+  UserList();
+
 };
 
 // ------------------------------------------------ Remove the User from the Stream ----------------------------------------------------- \\\
-
+let rrr = Math.floor(Math.random() * 18);
 let leaveAndRemoveLocalStream = async () => {
+
+  deleteMember();
+
+
   for (let i = 0; localTracks.length > i; i++) {
     localTracks[i].stop();
     localTracks[i].close();
   }
+  if (Random) {
+
+   deleteRoom();
+      } 
 
   await client.leave();
 
-  deleteRoom();
-  deleteMember();
+
   window.open("/", "_self");
+  
+
+
+  // window.location.assign("/");
 };
 
 // ------------------------------------------------ Allow User to Toggle the Camera ----------------------------------------------------- \\\
 
+// Change to Setmuted because its faster
 let toggleCamera = async (e) => {
   console.log("TOGGLE CAMERA TRIGGERED", localTracks[1]);
   if (localTracks[1].enabled) {
     await localTracks[1].setEnabled(false);
 
     e.target.style.backgroundColor = "rgb(255, 80, 80, 1)";
-    remove_camera_css("0%");
+    remove_camera_css("0%", false);
     console.log("FFF set to disable");
   } else {
-    remove_camera_css("100%");
+    remove_camera_css("100%", true);
     await localTracks[1].setEnabled(true);
     e.target.style.backgroundColor = "#fff";
     console.log("FFF set to enabled");
@@ -178,58 +199,83 @@ let getMember = async (user) => {
   console.log("Getmember:", member);
   return member;
 };
-// ------------------------------------------------ Grabs the Member Information  ----------------------------------------------------- \\\
-
-let deleteMember = async (event) => {
+// ------------------------------------------------ Deletes the Member Information  ----------------------------------------------------- \\\
+let deleteMember = async () => {
   console.log("Delete Member Called:");
-  // event.preventDefault();
+
   let response = await fetch("/delete_member/", {
     method: "POST",
-    RequestMode: "no-cors",
+    mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ name: NAME, room_name: CHANNEL, UID: UID }),
   });
   let deletedmember = await response.json();
-
-  console.log(deletedmember);
+  console.log(deletedmember)
 };
 
+// ------------------------------------------------ Grabs The UserList  ----------------------------------------------------- \\\
+
 let AddedUsers = [];
+
 
 let UserList = async () => {
   let response = await fetch(`/get_user/?room_name=${CHANNEL}`);
   let UL = await response.json();
-  console.log("Users:", UL);
-  console.log("addedUsers:", AddedUsers);
   let RoomUserList = UL.users;
+  console.log("addedUsers:", AddedUsers, 'RoomUserlist', RoomUserList);
+  let userdiv;
   RoomUserList.forEach(
     (hello = (user) => {
       if (!AddedUsers.includes(user)) {
-        let userdiv = `<div class="button-60">${user}</div>`;
+        userdiv = `<div class="button-60" id="${user}">${user}</div>`
+
         document
           .getElementById("AllUsers")
           .insertAdjacentHTML("beforeend", userdiv);
         AddedUsers.push(user);
       }
+
     })
   );
+  UserList_delete_user(RoomUserList)
+
 };
+
+let UserList_delete_user = async (RL) => {
+  AddedUsers.forEach(
+    (hello = (user) => {
+      if (!RL.includes(user)) {
+
+        document.getElementById(user).remove();
+
+      const index = AddedUsers.indexOf(user);
+      AddedUsers.splice(index, 1);
+      console.log("UDU update: ", AddedUsers);
+      }
+
+    })
+  );
+
+};
+
+// ------------------------------------------------ Removes the Member in the Room  ----------------------------------------------------- \\\
+
 
 let deleteRoom = async () => {
   console.log("Random: ", Random);
-  if (Random) {
+
     let response = await fetch("/leave_RandomRoom/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ RoomName: "Sandy Cheeks" }),
+      body: JSON.stringify({ RoomName: CHANNEL }),
     });
     let postupdate = await response.json();
     console.log("Post Update:", postupdate);
-  }
+  
 };
 
 AgoraRTC.onAutoplayFailed = () => {
@@ -243,16 +289,27 @@ AgoraRTC.onAutoplayFailed = () => {
 
 let remove_camera_css = (height) => {
   const self = document.querySelector(".selff");
-  console.log(self);
+
   self.style.height = height;
 };
+
+
+
 // ------------------------------------------------ Calling the Main Function  ----------------------------------------------------- \\\
 
 joinAndDisplayLocalStream();
 
 // ------------------------------------------------ Assinging Functions to the HTML  ----------------------------------------------------- \\\
-window.addEventListener("beforeunload", deleteMember);
 window.addEventListener("beforeunload", deleteRoom);
+window.addEventListener("beforeunload", deleteMember);
+  
+
+// window.addEventListener("beforeunload ", function(event)  {
+//   window.alert("alert")
+//   alert("yoas")
+// });
+
+// window.onbeforeunload = deleteRoom
 
 document
   .getElementById("leave-btn")
@@ -261,6 +318,3 @@ document.getElementById("camera-btn").addEventListener("click", toggleCamera);
 document.getElementById("mic-btn").addEventListener("click", toggleMic);
 
 // ------------------------------------------------------------------------------------------------------------- \\\
-AgoraRTC.onMicrophoneChanged = (info) => {
-  console.log("microphone changed!", info.state, info.device);
-};

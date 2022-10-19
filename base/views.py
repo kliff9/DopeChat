@@ -102,20 +102,12 @@ def GenerateRandomRoom(request):
     Available_room = None
     Rooms = list(Room.objects.values('id','RoomName', 'max', 'Available'))
 
-    # update = Room.objects.get(
-    #         id=2
-    #  )
-    # update.max = 0
-    # update.save()
-
     for x in range(0, len(Rooms)):
         if Rooms[x]["max"] == 1:
 
 
-            # print("Data: ", x, " is already in the system")
             Available_room = Rooms[x]
-            # Rooms[x]["max"] += 1
-            # Rooms[x]["Available"] = False
+
             update = Room.objects.get(
                 id=Rooms[x]["id"]
                 )
@@ -131,7 +123,6 @@ def GenerateRandomRoom(request):
 
 
             Available_room = Available_rooms_left[Rn]
-            # Available_room["max"] += 1
             update = Room.objects.get(
                 id=Available_room["id"]
                 )
@@ -141,8 +132,7 @@ def GenerateRandomRoom(request):
         except:
             print("An exception occurred")
 
-        # Rooms[Rn]["max"] += 1
-        # print('Rooms Inside : ', Rooms)
+
 
     print(Available_room)
     print(Rooms)
@@ -151,19 +141,7 @@ def GenerateRandomRoom(request):
 
     return JsonResponse({'room':Available_room }, safe=False)
 
-# def GRR(request):
-#     Rooms = Room.objects.all()
 
-#     for x in Rooms:
-#         if x.max == 0:
-#             update = Room.objects.get(
-#                 id=x.id
-#             )
-
-#         # print("Data: ", x, " is already in the system")
-#             Available_room = json.dumps(x, default=str)
-#             print(Available_room)
-#     return JsonResponse({'room':"Rooim" }, safe=False)
 @csrf_exempt
 def RoomLeaving(request):
     data = json.loads(request.body)
@@ -174,5 +152,5 @@ def RoomLeaving(request):
     _Room_.max -= 1
     _Room_.Available = True
     _Room_.save()
-    print(_Room_.max, _Room_.Available)
+    print('delted and updated to:', _Room_.max, _Room_.Available)
     return JsonResponse({"message": "Room has been Cleared", "max": _Room_.max, "Available": _Room_.Available }, safe=False)
